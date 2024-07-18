@@ -36,6 +36,7 @@ public class SecurityConfig {
                                         userInfoEndpoint -> userInfoEndpoint
                                                 .userService(oAuth2UserService)
                                 )
+                                .defaultSuccessUrl("/member/socialjoin", true) // 소셜 로그인 성공 후에는 /member/socialjoin으로 리다이렉트
                 )
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
