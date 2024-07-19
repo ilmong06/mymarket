@@ -48,7 +48,10 @@ header {
 }
 
 .logo img {
-    max-height: 40px;
+    margin-top: 130px;
+    margin-left: 180px;
+    width: 250px;
+    object-fit: contain;
 }
 
 .nav-links a {
