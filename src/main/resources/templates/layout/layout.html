@@ -39,7 +39,15 @@
             <a sec:authorize="isAnonymous()" th:href="@{/member/login}">LOGIN</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">LOGOUT</a>
             <a sec:authorize="isAnonymous()" href="/member/join">JOIN</a>
-            <a href="/member/mypage">MYPAGE</a>
+            <div class="community2">
+                <a href="#" class="nav-link">MYPAGE</a>
+                <ul class="sub">
+                    <li><a href="/myshop/index.html">MY PAGE</a></li>
+                    <li><a href="/order/basket.html">CART</a></li>
+                    <li><a href="/myshop/order/list.html">ORDER</a></li>
+                    <li><a href="/myshop/wish_list.html">WISH LIST</a></li>
+                </ul>
+            </div>
             <a href="/cart">CART</a>
         </div>
     </div>
