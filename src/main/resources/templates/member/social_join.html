@@ -11,19 +11,21 @@
 </head>
 <body>
 <div layout:fragment="content" class="container mt-[100px]">
+  <div class="info">
+    <h2>JOIN</h2>
+  </div>
   <div class="row">
     <div class="col-sm-6 offset-sm-3">
-      <div class="card">
-        <div class="card-header">회원가입</div>
-        <div class="card-body">
-          <form th:action="@{/member/social_join}" th:object="${memberForm2}" method="POST">
-            <div class="mb-3">
-              <label for="address" class="form-label">주소</label>
-              <input type="address" name="address" id="address" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">회원가입</button>
-          </form>
-        </div>
+      <!-- 카드 대신 직접 폼 배치 -->
+      <div class="form-container">
+
+        <form th:action="@{/member/social_join}" th:object="${memberForm2}" method="POST">
+          <div class="mb-3">
+            <label for="address" class="form-label">주소</label>
+            <input type="text" name="address" id="address" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">회원가입</button>
+        </form>
       </div>
     </div>
   </div>

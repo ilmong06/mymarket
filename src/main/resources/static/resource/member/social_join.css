@@ -1,3 +1,11 @@
-.card {
-    margin-top: 200px; /* 위쪽 여백을 추가하여 폼을 아래로 이동 */
+.info {
+   margin-top: 220px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin-bottom: 20px; /* 폼과의 여백 설정 */
+}
+
+.info h2 {
+    color: #303030; /* 텍스트 색상 설정 */
+    font-size: 13px; /* 텍스트 크기 설정 */
+    /* 텍스트 굵기 설정 */
 }
