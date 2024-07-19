@@ -27,7 +27,7 @@ public class MemberService {
                 .email(email)
                 .nickname(nickname)
                 .address(address)
-                .coupon(coupon)
+                .coupon(null)
                 .build();
 
         memberRepository.save(member);
