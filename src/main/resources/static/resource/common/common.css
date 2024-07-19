@@ -117,6 +117,11 @@ header {
 .community2 {
     position: relative;
     display: inline-block;
+    padding: 0px;
+}
+
+.community2 a {
+    padding: 0px;
 }
 
 .community2 .sub {
