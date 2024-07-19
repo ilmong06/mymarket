@@ -89,8 +89,11 @@ header {
     color: #000000; /* hover 시 검정색으로 변경 */
 }
 
-.nav-menu a{
-
+.side-menu a{
+    text-align: center;
+    display: block; /* 링크를 블록으로 변경하여 가운데 정렬 */
+    font-family: 'sans-serif';
+    font-size: 12px;
 }
 
 /* 페이지 콘텐츠를 헤더 아래로 밀어내기 */
