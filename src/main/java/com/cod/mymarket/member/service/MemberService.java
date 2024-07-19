@@ -5,6 +5,7 @@ import com.cod.mymarket.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,15 @@ public class MemberService {
     }
 
 
-
+    @Transactional
+    public void updateAddress(String username, String address) {
+        Optional<Member> memberOptional = memberRepository.findByUsername(username);
+        if (memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            member.setAddress(address);
+            memberRepository.save(member);
+        } else {
+            throw new UsernameNotFoundException("User not found");
+        }
+    }
 }
