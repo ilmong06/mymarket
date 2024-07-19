@@ -13,14 +13,13 @@
 <body>
 <!-- 콘텐츠 영역 -->
 <section layout:fragment="content" class="flex-1 flex flex-col items-center py-4">
-
     <!-- 슬라이드 배너 -->
     <div class="slider-wrapper">
         <div class="slider">
             <div class="slides">
                 <!-- 슬라이드 아이템들 -->
                 <div class="slide"><img src="/images/slide/slider.png" alt="Slide 1"></div>
-                <div class="slide"><img src="/images/slide2.jpg" alt="Slide 2"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 2"></div>
                 <div class="slide"><img src="/images/slide3.jpg" alt="Slide 3"></div>
                 <div class="slide"><img src="/images/slide4.jpg" alt="Slide 4"></div>
                 <div class="slide"><img src="/images/slide5.jpg" alt="Slide 5"></div>
@@ -28,32 +27,49 @@
                 <div class="slide"><img src="/images/slide7.jpg" alt="Slide 7"></div>
                 <div class="slide"><img src="/images/slide8.jpg" alt="Slide 8"></div>
             </div>
-            <!-- 이전, 다음 버튼 -->
-            <button class="prev">&#10094;</button>
-            <button class="next">&#10095;</button>
+        </div>
+        <!-- 페이지네이션 버튼들 -->
+        <div class="swiper-pagination">
+            <span class="swiper-pagination-bullet">1</span>
+            <span class="swiper-pagination-bullet">2</span>
+            <span class="swiper-pagination-bullet">3</span>
+            <span class="swiper-pagination-bullet">4</span>
+            <span class="swiper-pagination-bullet">5</span>
+            <span class="swiper-pagination-bullet">6</span>
+            <span class="swiper-pagination-bullet">7</span>
+            <span class="swiper-pagination-bullet">8</span>
         </div>
     </div>
 </section>
 
 <!-- JavaScript 슬라이더 기능 -->
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelector('.slides');
     const slideCount = document.querySelectorAll('.slide').length;
+    const bullets = document.querySelectorAll('.swiper-pagination-bullet');
     let index = 0;
 
-    document.querySelector('.next').addEventListener('click', () => {
-        index = (index + 1) % slideCount;
-        updateSlider();
-    });
-
-    document.querySelector('.prev').addEventListener('click', () => {
-        index = (index - 1 + slideCount) % slideCount;
-        updateSlider();
-    });
-
     function updateSlider() {
+        console.log('Updating slider to index:', index); // 디버깅
         slides.style.transform = `translateX(-${index * 100}%)`;
+        bullets.forEach((bullet, i) => {
+            bullet.classList.toggle('swiper-pagination-bullet-active', i === index);
+        });
     }
+
+    // 페이지네이션 버튼 클릭 시 슬라이드 이동
+    bullets.forEach((bullet, i) => {
+        bullet.addEventListener('click', () => {
+            console.log('Clicked bullet index:', i); // 디버깅
+            index = i;
+            updateSlider();
+        });
+    });
+
+    // 초기 업데이트
+    updateSlider();
+});
 </script>
 </body>
 </html>

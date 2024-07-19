@@ -1,59 +1,48 @@
-/* 슬라이더 감싸는 div */
+.swiper-pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+}
+.swiper-pagination-bullet {
+    display: inline-block; /* 버튼이 인라인 블록으로 설정되어 있어야 클릭 가능 */
+    cursor: pointer; /* 버튼에 클릭 가능한 커서 표시 */
+    font-family: 'Malgun Gothic';
+    color: white; /* 글씨 색상 흰색 */
+    border: 1px solid #ddd;
+    width: 20px; /* 페이지네이션 버튼 크기 증가 */
+    height: 20px; /* 버튼 크기 증가 */
+    border-radius: 50%; /* 원형 버튼 */
+    display: inline-flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    margin: 0 6px; /* 버튼 간격 조정 */
+    font-size: 16px; /* 글씨 크기 증가 */
+    font-weight: bold; /* 글씨 두껍게 */
+    transition: background-color 0.3s;
+}
+.swiper-pagination-bullet-active {
+    background-color: #007bff; /* 활성화된 버튼 배경 색상 */
+}
 .slider-wrapper {
     position: relative;
     width: 100%;
-    height: 100%; /* 슬라이더 높이 */
-    overflow: hidden;
+    height: 100%; /* 슬라이더 높이 조정 */
     margin-top: 220px;
 }
-
-/* 슬라이더 스타일 */
-.slider {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-/* 슬라이드 컨테이너 */
 .slides {
     display: flex;
     transition: transform 0.5s ease;
     width: 100%;
-    height: 100%;
 }
-
-/* 개별 슬라이드 */
 .slide {
     min-width: 100%;
     height: 100%;
-    flex-shrink: 0; /* 슬라이드 크기 고정 */
 }
-
-/* 슬라이드 내 이미지 */
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 비율 유지하면서 크기 조정 */
-}
-
-/* 이전, 다음 버튼 스타일 */
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 1000;
-    font-size: 24px;
-}
-
-.prev {
-    left: 10px;
-}
-
-.next {
-    right: 10px;
+    object-fit: cover;
 }
