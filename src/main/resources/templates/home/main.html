@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html layout:decorate="~{/layout/layout}">
+<html layout:decorate="~{layout/layout.html}">
 
 <head>
-    <!-- 필요한 CSS 및 JS 파일 링크 추가 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+
+    <!-- 폰트 링크 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Malgun+Gothic:wght@400;700&display=swap">
+
+    <!-- 제이쿼리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <!-- 부트스트랩 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+    <!-- 테일윈드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+
+    <!-- 폰트어썸 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 
     <!-- 사용자 정의 스타일 시트 링크 -->
     <link rel="stylesheet" href="/resource/main/main.css"> <!-- CSS 파일 경로 설정 -->
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 <!-- 콘텐츠 영역 -->
 <section layout:fragment="content" class="flex-1 flex flex-col items-center py-4">
     <!-- 슬라이드 배너 -->
@@ -20,12 +38,12 @@
                 <!-- 슬라이드 아이템들 -->
                 <div class="slide"><img src="/images/slide/slider.png" alt="Slide 1"></div>
                 <div class="slide"><img src="/images/slide/slider.png" alt="Slide 2"></div>
-                <div class="slide"><img src="/images/slide3.jpg" alt="Slide 3"></div>
-                <div class="slide"><img src="/images/slide4.jpg" alt="Slide 4"></div>
-                <div class="slide"><img src="/images/slide5.jpg" alt="Slide 5"></div>
-                <div class="slide"><img src="/images/slide6.jpg" alt="Slide 6"></div>
-                <div class="slide"><img src="/images/slide7.jpg" alt="Slide 7"></div>
-                <div class="slide"><img src="/images/slide8.jpg" alt="Slide 8"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 3"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 4"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 5"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 6"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 7"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 8"></div>
             </div>
         </div>
         <!-- 페이지네이션 버튼들 -->
@@ -41,7 +59,6 @@
         </div>
     </div>
 </section>
-
 <!-- JavaScript 슬라이더 기능 -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
