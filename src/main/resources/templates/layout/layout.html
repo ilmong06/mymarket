@@ -38,7 +38,7 @@
         <div class="nav-links">
             <a sec:authorize="isAnonymous()" th:href="@{/member/login}">LOGIN</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">LOGOUT</a>
-            <a href="/member/join">JOIN</a>
+            <a sec:authorize="isAnonymous()" href="/member/join">JOIN</a>
             <a href="/member/mypage">MYPAGE</a>
             <a href="/cart">CART</a>
         </div>
