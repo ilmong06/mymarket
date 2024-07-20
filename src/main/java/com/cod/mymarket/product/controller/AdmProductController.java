@@ -1,5 +1,6 @@
 package com.cod.mymarket.product.controller;
 
+
 import com.cod.mymarket.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,13 +26,13 @@ public class AdmProductController {
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String createContent(
-            @RequestParam("title") String title, @RequestParam("description") String description,
-            @RequestParam("price") int price, @RequestParam("thumbnail") MultipartFile thumbnail
-
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("price") int price,
+            @RequestParam("thumbnail") MultipartFile thumbnail,
+            @RequestParam("type") String type // 추가된 파라미터
     ) {
-        productService.create(title, description, price, thumbnail);
-
-        return "adm/product/create";
+        productService.create(title, description, price, thumbnail, type);
+        return "redirect:/adm/product/create";
     }
 }
-
