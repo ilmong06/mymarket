@@ -10,9 +10,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${custom.genFileDirPath}")
     private String genFileDirPath;
 
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/gen/**")
-//                .addResourceLocations("file:///" + genFileDirPath + "/");
-//    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/gen/**")
+                .addResourceLocations("file:///" + genFileDirPath + "/");
+    }
+
 }

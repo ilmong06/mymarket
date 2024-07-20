@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <html layout:decorate="~{/layout/layout}">
-<section layout:fragment="content" class="section-prod-toplist">
-    <div class="container">
+<head>
+    <!-- 필요한 CSS 및 JS 파일 링크 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <!-- 사용자 정의 스타일 시트 링크 -->
+    <link rel="stylesheet" href="/resource/product/toplist.css"> <!-- CSS 파일 경로 설정 -->
+</head>
+<div layout:fragment="content" class="section-prod-list">
+    <div class="container">
+        <h1 class="text-[1.5rem] font-bold flex justify-center pt-5 pb-5">강의 리스트</h1>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-3">
+            <li th:each="product, loop : ${paging}" class="flex flex-col group xl:w-[300px] w-full">
+                <a th:href="@{|/product/detail/${product.id}|}"
+                   class="border border-black h-[250px] transition duration-300 rounded-lg hover:rounded-lg hover:-translate-y-1.5 hover:transition hover:duration-300 hover:shadow-md"
+                >
+                    <img class="object-cover object-center block w-full h-full rounded-lg" th:src="@{|/gen/${product.thumbnailImg}|}" alt="이미지가 존재하지 않습니다.">
+                </a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" class="text-center md:!text-left mt-2"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}" class="text-center md:!text-left"></a>
+            </li>
+        </ul>
 
         <!-- 페이징 처리 시작 -->
         <ul th:if="${!paging.isEmpty()}" class="pagination flex justify-center mt-5">
@@ -26,7 +46,7 @@
                 </a>
             </li>
         </ul>
-        <form th:action="@{/product/toplist}" method="get" id="searchForm">
+        <form th:action="@{/product/list}" method="get" id="searchForm">
             <input type="hidden" id="kw" name="kw" th:value="${kw}">
             <input type="hidden" id="page" name="page" th:value="${paging.number}">
         </form>
@@ -45,5 +65,5 @@
             });
         });
     </script>
-</section>?
+</div>?
 </html>
