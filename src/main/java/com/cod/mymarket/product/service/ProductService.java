@@ -1,6 +1,7 @@
 package com.cod.mymarket.product.service;
 
 import com.cod.mymarket.product.entity.Product;
+import com.cod.mymarket.product.entity.ProductType;
 import com.cod.mymarket.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,33 +35,35 @@ public class ProductService {
         return productRepository.findAllByKeyword(kw, pageable);
     }
 
-    public void create(String title, String description, int price, MultipartFile thumbnail) {
+    public void create(String title, String description, int price, MultipartFile thumbnail, ProductType type) {
         String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
 
-        thumbnailFile.mkdir();
+        thumbnailFile.getParentFile().mkdirs();
 
         try {
             thumbnail.transferTo(thumbnailFile);
-        } catch ( IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         Product p = Product.builder()
-            .title(title)
-            .description(description)
-            .price(price)
-            .thumbnailImg(thumbnailRelPath)
-            .build();
+                .title(title)
+                .description(description)
+                .price(price)
+                .thumbnailImg(thumbnailRelPath)
+                .productType(type)
+                .build();
         productRepository.save(p);
     }
 
-    public void create(String title, String description, int price) {
+    public void create(String title, String description, int price, ProductType type) {
         Product p = Product.builder()
                 .title(title)
                 .description(description)
                 .price(price)
                 .thumbnailImg("product/product1.jpg")
+                .productType(type)
                 .build();
         productRepository.save(p);
     }
@@ -71,12 +74,19 @@ public class ProductService {
         if (product.isPresent()) {
             return product.get();
         } else {
-            throw new RuntimeException("product not found");
+            throw new RuntimeException("Product not found");
         }
     }
 
-
     public List<Product> getList() {
         return productRepository.findAll();
+    }
+
+    // 특정 ProductType의 상품만 반환
+    public Page<Product> getByProductType(int page, ProductType type) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createDate"));
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sorts));
+        return productRepository.findAllByProductType(type, pageable);
     }
 }

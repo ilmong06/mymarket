@@ -1,6 +1,7 @@
 package com.cod.mymarket.product.controller;
 
 import com.cod.mymarket.product.entity.Product;
+import com.cod.mymarket.product.entity.ProductType;
 import com.cod.mymarket.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,12 +25,19 @@ public class ProductController {
     public String toplist(
             Model model,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value="kw", defaultValue="") String kw
+            @RequestParam(value = "kw", defaultValue = "") String kw
     ) {
-        Page<Product> paging = productService.getList(page, kw);
+        // ProductType.TOP으로 필터링된 상품만 반환
+        Page<Product> paging;
+        if (kw.isEmpty()) {
+            paging = productService.getByProductType(page, ProductType.TOP);
+        } else {
+            paging = productService.getByProductType(page, ProductType.TOP);
+        }
 
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
+        model.addAttribute("type", "TOP"); // 추가: 현재 필터링된 타입을 HTML 템플릿에 전달
         return "product/toplist";
     }
 
