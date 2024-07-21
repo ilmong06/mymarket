@@ -40,6 +40,26 @@ public class ProductController {
         return "product/toplist";
     }
 
+    @GetMapping("/bottomlist")
+    public String bottomlist(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "kw", defaultValue = "") String kw
+    ) {
+        // ProductType.TOP으로 필터링된 상품만 반환
+        Page<Product> paging;
+        if (kw.isEmpty()) {
+            paging = productService.getByProductType(page, ProductType.BOTTOM);
+        } else {
+            paging = productService.getByProductType(page, ProductType.BOTTOM);
+        }
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        model.addAttribute("type", "BOTTOM"); // 추가: 현재 필터링된 타입을 HTML 템플릿에 전달
+        return "product/bottomlist";
+    }
+
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
         Product product = productService.getProduct(id);
