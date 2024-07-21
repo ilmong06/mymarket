@@ -19,4 +19,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             or p.description like %:kw%
             """)
     Page<Product> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+    Page<Product> findByProductType(String productType, Pageable pageable);
 }

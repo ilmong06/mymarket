@@ -109,4 +109,13 @@ public class ProductService {
     public List<Product> getList() {
         return productRepository.findAll();
     }
+    public Page<Product> getProductsByType(String productType, Pageable pageable) {
+        Page<Product> products = productRepository.findByProductType(productType, pageable);
+
+        // productType 필드를 설정
+        products.forEach(product -> product.setProductType(productType));
+
+        return products;
+    }
 }
+

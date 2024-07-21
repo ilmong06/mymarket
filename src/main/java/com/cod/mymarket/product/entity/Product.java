@@ -27,4 +27,11 @@ public class Product extends BaseEntity {
 
     @ManyToOne
     private Member member;
+
+    @Transient
+    private String productType;
+    // productType을 설정하는 메서드
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
 }
