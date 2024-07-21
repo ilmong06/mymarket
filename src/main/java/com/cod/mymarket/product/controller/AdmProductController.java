@@ -1,7 +1,11 @@
 package com.cod.mymarket.product.controller;
 
+<<<<<<< HEAD
 import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.product.entity.ProductType;
+=======
+
+>>>>>>> 9d81da79a630d2dcf0fd4dd69e6913d11289a8c2
 import com.cod.mymarket.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,6 +54,7 @@ public class AdmProductController {
             @RequestParam("description") String description,
             @RequestParam("price") int price,
             @RequestParam("thumbnail") MultipartFile thumbnail,
+<<<<<<< HEAD
             @RequestParam("productType") String productType,
             @AuthenticationPrincipal Member member // 현재 로그인된 사용자를 가져옵니다.
     ) {
@@ -65,6 +70,11 @@ public class AdmProductController {
         productService.create(title, description, price, thumbnail, type);
 
         return "redirect:/adm/product/create"; // 상품 생성 후 다른 페이지로 리다이렉트
+=======
+            @RequestParam("type") String type // 추가된 파라미터
+    ) {
+        productService.create(title, description, price, thumbnail, type);
+        return "redirect:/adm/product/create";
+>>>>>>> 9d81da79a630d2dcf0fd4dd69e6913d11289a8c2
     }
 }
-
