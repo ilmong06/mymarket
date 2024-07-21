@@ -10,8 +10,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "product_type")
 @Getter
 @ToString
 @SuperBuilder
@@ -28,15 +26,6 @@ public class Product extends BaseEntity {
     @ManyToOne
     private Member member;
 
-<<<<<<< HEAD
     @Enumerated(EnumType.STRING)
     private ProductType productType;
-=======
-    @Transient
-    private String productType;
-    // productType을 설정하는 메서드
-    public void setProductType(String productType) {
-        this.productType = productType;
-    }
->>>>>>> 9d81da79a630d2dcf0fd4dd69e6913d11289a8c2
 }

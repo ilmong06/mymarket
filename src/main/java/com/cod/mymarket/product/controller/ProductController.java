@@ -20,7 +20,6 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-
     @GetMapping("/toplist")
     public String toplist(
             Model model,
