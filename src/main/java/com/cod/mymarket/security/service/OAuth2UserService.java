@@ -41,18 +41,13 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         Member member = null;
         String oauthType = userRequest.getClientRegistration().getRegistrationId().toUpperCase();
 
-        if (!"KAKAO".equals(oauthType)) {
-            throw new OAuthTypeMatchNotFoundException();
-        }
-
-        if (isNew(oauthType, oauthId)) {
-            switch (oauthType) {
-                case "KAKAO" -> {
+        switch (oauthType) {
+            case "KAKAO" -> {
+                if (isNew(oauthType, oauthId)) {
                     Map attributesProperties = (Map) attributes.get("properties");
                     Map attributesKakaoAcount = (Map) attributes.get("kakao_account");
                     String nickname = (String) attributesProperties.get("nickname");
                     String username = "KAKAO_%s".formatted(oauthId);
-
 
                     member = Member.builder()
                             .username(username)
@@ -62,11 +57,51 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
                             .build();
 
                     memberRepository.save(member);
+                } else {
+                    member = memberRepository.findByUsername("%s_%s".formatted(oauthType, oauthId))
+                            .orElseThrow(MemberNotFoundException::new);
                 }
             }
-        } else {
-            member = memberRepository.findByUsername("%s_%s".formatted(oauthType, oauthId))
-                    .orElseThrow(MemberNotFoundException::new);
+            case "GOOGLE" -> {
+                if (isNew(oauthType, oauthId)) {
+                    String email = (String) attributes.get("email");
+                    String username = "GOOGLE_%s".formatted(oauthId);
+                    String nickname = (String) attributes.get("name");
+
+                    member = Member.builder()
+                            .username(username)
+                            .password("")
+                            .email(email)
+                            .nickname(nickname)
+                            .build();
+
+                    memberRepository.save(member);
+                } else {
+                    member = memberRepository.findByUsername("%s_%s".formatted(oauthType, oauthId))
+                            .orElseThrow(MemberNotFoundException::new);
+                }
+            }
+            case "NAVER" -> {
+                if (isNew(oauthType, oauthId)) {
+                    Map response = (Map) attributes.get("response");
+                    String email = (String) response.get("email");
+                    String username = "NAVER_%s".formatted(oauthId);
+                    String nickname = (String) response.get("nickname");
+
+                    member = Member.builder()
+                            .username(username)
+                            .password("")
+                            .email(email)
+                            .nickname(nickname)
+                            .build();
+
+                    memberRepository.save(member);
+                } else {
+                    member = memberRepository.findByUsername("%s_%s".formatted(oauthType, oauthId))
+                            .orElseThrow(MemberNotFoundException::new);
+                }
+            }
+            default -> throw new OAuthTypeMatchNotFoundException();
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
