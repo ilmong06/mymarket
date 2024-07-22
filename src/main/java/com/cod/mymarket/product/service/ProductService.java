@@ -35,7 +35,7 @@ public class ProductService {
         return productRepository.findAllByKeyword(kw, pageable);
     }
 
-    public void create(String title, String description, int price, MultipartFile thumbnail, ProductType type) {
+    public void create(String title, String description, int price, MultipartFile thumbnail,MultipartFile detailImg, ProductType type) {
         String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
 
@@ -47,22 +47,35 @@ public class ProductService {
             throw new RuntimeException(e);
         }
 
+        String detailImgRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
+        File detailImgFile = new File(genFileDirPath + "/" + detailImgRelPath);
+
+        detailImgFile.getParentFile().mkdirs();
+
+        try {
+            detailImg.transferTo(detailImgFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         Product p = Product.builder()
                 .title(title)
                 .description(description)
                 .price(price)
                 .thumbnailImg(thumbnailRelPath)
+                .detailImg(detailImgRelPath)
                 .productType(type)
                 .build();
         productRepository.save(p);
     }
 
-    public void create(String title, String description, int price, ProductType type,String thumbnailRelPath) {
+    public void create(String title, String description, int price, ProductType type,String thumbnailRelPath,String detailImgRelPath) {
         Product p = Product.builder()
                 .title(title)
                 .description(description)
                 .price(price)
                 .thumbnailImg(thumbnailRelPath)
+                .detailImg(detailImgRelPath)
                 .productType(type)
                 .build();
         productRepository.save(p);

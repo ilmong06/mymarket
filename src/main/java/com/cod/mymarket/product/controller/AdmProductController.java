@@ -50,6 +50,7 @@ public class AdmProductController {
             @RequestParam("description") String description,
             @RequestParam("price") int price,
             @RequestParam("thumbnail") MultipartFile thumbnail,
+            @RequestParam("detailImg") MultipartFile detailImg,
             @RequestParam("productType") String productType,
             @AuthenticationPrincipal Member member // 현재 로그인된 사용자를 가져옵니다.
     ) {
@@ -62,7 +63,7 @@ public class AdmProductController {
         }
 
         // productService.create 메소드 호출
-        productService.create(title, description, price, thumbnail, type);
+        productService.create(title, description, price, thumbnail, detailImg, type);
 
         return "redirect:/adm/product/create"; // 상품 생성 후 다른 페이지로 리다이렉트
     }
