@@ -10,14 +10,14 @@
 <div layout:fragment="content" class="section-prod-list">
     <div class="container">
         <div class="info">
-            <h2>TOP</h2>
+            <h2>-TOP-</h2>
         </div>
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-3">
             <li th:each="product : ${paging.content}" class="flex flex-col group xl:w-[300px] w-full">
                 <a th:href="@{|/product/detail/${product.id}|}"
-                   class="border border-black h-[250px] transition duration-300 rounded-lg hover:rounded-lg hover:-translate-y-1.5 hover:transition hover:duration-300 hover:shadow-md"
+                   class="h-[340px]"
                 >
-                    <img class="object-cover object-center block w-full h-full rounded-lg" th:src="@{|/gen/${product.thumbnailImg}|}" alt="이미지가 존재하지 않습니다.">
+                    <img class="object-cover object-center block w-full h-full" th:src="@{|/gen/${product.thumbnailImg}|}" alt="이미지가 존재하지 않습니다.">
                 </a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" class="text-center md:!text-left mt-2"></a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}" class="text-center md:!text-left"></a>
