@@ -12,46 +12,46 @@
         <div class="info">
             <h2>-TOP-</h2>
         </div>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-3">
-            <li th:each="product : ${paging.content}" class="flex flex-col group xl:w-[300px] w-full">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
+            <li th:each="product : ${paging.content}">
                 <a th:href="@{|/product/detail/${product.id}|}"
                    class="h-[340px]"
                 >
-                    <img class="object-cover object-center block w-full h-full" th:src="@{|/gen/${product.thumbnailImg}|}" alt="이미지가 존재하지 않습니다.">
+                    <img class="object-cover object-center block w-full h-full flex flex-col items-center" th:src="@{|/gen/${product.thumbnailImg}|}" alt="이미지가 존재하지 않습니다.">
                 </a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" class="text-center md:!text-left mt-2"></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}" class="text-center md:!text-left"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" class="block md:!text-left text-lg mb-1 mt-2"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}" class=" block md:!text-left text-base"></a>
             </li>
         </ul>
 
         <!-- 페이징 처리 시작 -->
-        <ul th:if="${!paging.isEmpty()}" class="pagination flex justify-center mt-5">
-            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
-                    <span>&lt;</span>
-                </a>
-            </li>
+<!--        <ul th:if="${!paging.isEmpty()}" class="pagination flex justify-center mt-5">-->
+<!--            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
+<!--                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">-->
+<!--                    <span>&lt;</span>-->
+<!--                </a>-->
+<!--            </li>-->
 
-            <li th:each="page : ${#numbers.sequence(0, paging.totalPages-1)}"
-                th:if="${page >= paging.number-5 and page <= paging.number+5}"
-                th:classappend="${page == paging.number} ? 'active'"
-                class="page-item"
-            >
-                <a th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
-            </li>
+<!--            <li th:each="page : ${#numbers.sequence(0, paging.totalPages-1)}"-->
+<!--                th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
+<!--                th:classappend="${page == paging.number} ? 'active'"-->
+<!--                class="page-item"-->
+<!--            >-->
+<!--                <a th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>-->
+<!--            </li>-->
 
-            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
-                    <span>&gt;</span>
-                </a>
-            </li>
-        </ul>
-        <form th:action="@{/toplist}" method="get" id="searchForm">
-            <input type="hidden" id="kw" name="kw" th:value="${kw}">
-            <input type="hidden" id="page" name="page" th:value="${paging.number}">
-            <input type="hidden" id="type" name="type" th:value="TOP">
-        </form>
-    </div>
+<!--            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
+<!--                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">-->
+<!--                    <span>&gt;</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <form th:action="@{/toplist}" method="get" id="searchForm">-->
+<!--            <input type="hidden" id="kw" name="kw" th:value="${kw}">-->
+<!--            <input type="hidden" id="page" name="page" th:value="${paging.number}">-->
+<!--            <input type="hidden" id="type" name="type" th:value="TOP">-->
+<!--        </form>-->
+<!--    </div>-->
     <script layout:fragment="script" type="text/javascript">
         $(document).ready(function () {
             $(".page-link").on("click", function () {
