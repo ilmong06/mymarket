@@ -31,6 +31,20 @@ public class DevInitData implements BeforeInitData {
             productService.create("타이틀3", "3 DRESS 설명입니다.", 3000000, ProductType.DRESS, "product/product1.jpg", "product/product1.jpg", null,12);
             productService.create("타이틀4", "4 OUTER 설명입니다.", 40000, ProductType.OUTER, "product/product2.jpg", "product/product2.jpg", null,12);
 
+            productService.create("타이틀5", "5 TOP 설명입니다.", 100000, ProductType.TOP, "product/product1.jpg", "product/product1.jpg", null,12);
+            productService.create("타이틀6", "6 BOTTOM 설명입니다.", 20000, ProductType.BOTTOM, "product/product2.jpg", "product/product2.jpg", null,12);
+            productService.create("타이틀7", "7 DRESS 설명입니다.", 3000000, ProductType.DRESS, "product/product1.jpg", "product/product1.jpg", null,12);
+            productService.create("타이틀8", "8 OUTER 설명입니다.", 40000, ProductType.OUTER, "product/product2.jpg", "product/product2.jpg", null,12);
+
+            productService.create("타이틀9", "9 TOP 설명입니다.", 100000, ProductType.TOP, "product/product1.jpg", "product/product1.jpg", null,12);
+            productService.create("타이틀10", "10 BOTTOM 설명입니다.", 20000, ProductType.BOTTOM, "product/product2.jpg", "product/product2.jpg", null,12);
+            productService.create("타이틀11", "11 DRESS 설명입니다.", 3000000, ProductType.DRESS, "product/product1.jpg", "product/product1.jpg", null,12);
+            productService.create("타이틀12", "12 OUTER 설명입니다.", 40000, ProductType.OUTER, "product/product2.jpg", "product/product2.jpg", null,12);
+
+            productService.create("타이틀13", "13 TOP 설명입니다.", 100000, ProductType.TOP, "product/product1.jpg", "product/product1.jpg", null,12);
+            productService.create("타이틀14", "14 BOTTOM 설명입니다.", 20000, ProductType.BOTTOM, "product/product2.jpg", "product/product2.jpg", null,12);
+            productService.create("타이틀15", "15 DRESS 설명입니다.", 3000000, ProductType.DRESS, "product/product1.jpg", "product/product1.jpg", null,12);
+            productService.create("타이틀16", "16 OUTER 설명입니다.", 40000, ProductType.OUTER, "product/product2.jpg", "product/product2.jpg", null,12);
 
         };
     }
