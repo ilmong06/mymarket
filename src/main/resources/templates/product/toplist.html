@@ -20,7 +20,7 @@
                     <img class="object-cover object-center block w-full h-full flex flex-col items-center" th:src="@{|/gen/${product.thumbnailImg}|}" alt="이미지가 존재하지 않습니다.">
                 </a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" class="block md:!text-left text-lg mb-1 mt-2"></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}" class=" block md:!text-left text-base"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${'KRW:'+#numbers.formatInteger(product.price, 3, 'COMMA')}" class=" block md:!text-left text-base"></a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" class="block text-light-gray text-base"></a>
             </li>
         </ul>
