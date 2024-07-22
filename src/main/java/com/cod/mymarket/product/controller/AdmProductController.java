@@ -36,6 +36,7 @@ public class AdmProductController {
             @RequestParam("productType") String productType,
             @RequestParam(value = "option", required = false) String option,
             @RequestParam("point") int point,
+            @RequestParam("details") String details,
             @AuthenticationPrincipal Member member // 현재 로그인된 사용자를 가져옵니다.
     ) {
         // ProductType을 문자열로 받아서 ProductType enum으로 변환합니다.
@@ -47,7 +48,7 @@ public class AdmProductController {
         }
 
         // productService.create 메소드 호출
-        productService.create(title, description, price, thumbnail, detailImg, type, option, point);
+        productService.create(title, description, price, thumbnail, detailImg, type, option, point,details);
 
         return "redirect:/adm/product/create"; // 상품 생성 후 다른 페이지로 리다이렉트
     }
