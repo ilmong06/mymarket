@@ -5,6 +5,9 @@
 }
 .info h2 {
     color: #303030; /* 텍스트 색상 설정 */
-    font-size: 13px; /* 텍스트 크기 설정 */
+    font-size: 17px; /* 텍스트 크기 설정 */
     /* 텍스트 굵기 설정 */
+}
+.container{
+    font-family: 'Calibri';
 }

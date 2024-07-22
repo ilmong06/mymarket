@@ -15,7 +15,7 @@
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
             <li th:each="product : ${paging.content}">
                 <a th:href="@{|/product/detail/${product.id}|}"
-                   class="h-[340px]"
+                   class="h-[300px]"
                 >
                     <img class="object-cover object-center block w-full h-full flex flex-col items-center" th:src="@{|/gen/${product.thumbnailImg}|}" alt="이미지가 존재하지 않습니다.">
                 </a>
