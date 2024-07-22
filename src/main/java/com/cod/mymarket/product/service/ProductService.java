@@ -35,7 +35,7 @@ public class ProductService {
         return productRepository.findAllByKeyword(kw, pageable);
     }
 
-    public void create(String title, String description, int price, MultipartFile thumbnail,MultipartFile detailImg, ProductType type) {
+    public void create(String title, String description, int price, MultipartFile thumbnail, MultipartFile detailImg, ProductType type, String option, int point) {
         String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
 
@@ -58,6 +58,8 @@ public class ProductService {
             throw new RuntimeException(e);
         }
 
+        int calculatedPoint = calculatePoint(price);
+
         Product p = Product.builder()
                 .title(title)
                 .description(description)
@@ -65,11 +67,15 @@ public class ProductService {
                 .thumbnailImg(thumbnailRelPath)
                 .detailImg(detailImgRelPath)
                 .productType(type)
+                .point(calculatedPoint)
+                .option(option)
                 .build();
         productRepository.save(p);
     }
 
-    public void create(String title, String description, int price, ProductType type,String thumbnailRelPath,String detailImgRelPath) {
+    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, String detailImgRelPath,String option, int point) {
+        int calculatedPoint = calculatePoint(price);
+
         Product p = Product.builder()
                 .title(title)
                 .description(description)
@@ -77,8 +83,13 @@ public class ProductService {
                 .thumbnailImg(thumbnailRelPath)
                 .detailImg(detailImgRelPath)
                 .productType(type)
+                .point(calculatedPoint)
                 .build();
         productRepository.save(p);
+    }
+
+    private int calculatePoint(int price) {
+        return (int) (price * 0.003);
     }
 
     public Product getProduct(Long id) {

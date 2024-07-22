@@ -18,24 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/adm/product")
 public class AdmProductController {
     private final ProductService productService;
-    //쌤이랑 한 부분
-//    @GetMapping("/create")
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    public String create() {
-//        return "adm/product/create";
-//    }
-//
-//    @PostMapping("/create")
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    public String createContent(
-//            @RequestParam("title") String title, @RequestParam("description") String description,
-//            @RequestParam("price") int price, @RequestParam("thumbnail") MultipartFile thumbnail
-//
-//    ) {
-//        productService.create(title, description, price, thumbnail);
-//
-//        return "adm/product/create";
-//    }
 
     @GetMapping("/create")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -52,6 +34,8 @@ public class AdmProductController {
             @RequestParam("thumbnail") MultipartFile thumbnail,
             @RequestParam("detailImg") MultipartFile detailImg,
             @RequestParam("productType") String productType,
+            @RequestParam(value = "option", required = false) String option,
+            @RequestParam("point") int point,
             @AuthenticationPrincipal Member member // 현재 로그인된 사용자를 가져옵니다.
     ) {
         // ProductType을 문자열로 받아서 ProductType enum으로 변환합니다.
@@ -63,7 +47,7 @@ public class AdmProductController {
         }
 
         // productService.create 메소드 호출
-        productService.create(title, description, price, thumbnail, detailImg, type);
+        productService.create(title, description, price, thumbnail, detailImg, type, option, point);
 
         return "redirect:/adm/product/create"; // 상품 생성 후 다른 페이지로 리다이렉트
     }

@@ -23,6 +23,8 @@ public class Product extends BaseEntity {
     private String isActive;
     private String thumbnailImg;
     private String detailImg;
+    private String option;
+    private int point;
 
     @ManyToOne
     private Member member;

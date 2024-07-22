@@ -26,6 +26,7 @@ public class Member extends BaseEntity {
     private String isActive;
     private String address;
     private String coupon;
+    private String point;
 
 
 }
