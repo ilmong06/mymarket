@@ -35,7 +35,8 @@ public class ProductService {
         return productRepository.findAllByKeyword(kw, pageable);
     }
 
-    public void create(String title, String description, int price, MultipartFile thumbnail, MultipartFile detailImg, ProductType type, String option, int point,String details) {
+    public void create(String title, String description, int price, MultipartFile thumbnail, MultipartFile detailImg, ProductType type, String option, int point,String details,String color,MultipartFile detailicon) {
+       //썸네일
         String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
 
@@ -46,7 +47,7 @@ public class ProductService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+//상세이미지
         String detailImgRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File detailImgFile = new File(genFileDirPath + "/" + detailImgRelPath);
 
@@ -54,6 +55,18 @@ public class ProductService {
 
         try {
             detailImg.transferTo(detailImgFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //디테일아이콘
+        String detailiconRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
+        File detailiconFile = new File(genFileDirPath + "/" + detailiconRelPath);
+
+        detailiconFile.getParentFile().mkdirs();
+
+        try {
+            detailicon.transferTo(detailiconFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -70,11 +83,13 @@ public class ProductService {
                 .point(calculatedPoint)
                 .option(option)
                 .details(details)
+                .color(color)
+                .detailicon(detailiconRelPath)
                 .build();
         productRepository.save(p);
     }
 
-    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, String detailImgRelPath,String option, int point,String details) {
+    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, String detailImgRelPath,String option, int point,String details,String color,String detailiconRelPath) {
         int calculatedPoint = calculatePoint(price);
 
         Product p = Product.builder()
@@ -86,6 +101,8 @@ public class ProductService {
                 .productType(type)
                 .point(calculatedPoint)
                 .details(details)
+                .color(color)
+                .detailicon(detailiconRelPath)
                 .build();
         productRepository.save(p);
     }

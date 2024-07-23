@@ -24,8 +24,16 @@ public class Product extends BaseEntity {
     private String thumbnailImg;
     private String detailImg;
     private String option;
+
+    //적립금
     private int point;
+
+    //썸네일 디테일 설명
     private String details;
+
+    //썸네일 색상표와 디테일아이콘
+    private String color;
+    private String detailicon;
 
     @ManyToOne
     private Member member;
