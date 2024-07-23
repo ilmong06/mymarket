@@ -45,4 +45,8 @@ public class Product extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+
+    public void setHitCount(int hitCount) {
+        this.hitCount = hitCount;
+    }
 }

@@ -8,10 +8,14 @@
 </head>
 <body>
 <div layout:fragment="content" class="section-prod-list">
-    <div class="info">
-        <h2>-TOP-</h2>
-    </div>
     <div class="container">
+        <div class="info">
+            <h2>-BEST-</h2>
+        </div>
+
+        <div class="info">
+            <h2>-TOP-</h2>
+        </div>
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
             <li th:each="product : ${paging.content}">
                 <a th:href="@{|/product/detail/${product.id}|}" >

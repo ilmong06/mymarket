@@ -41,9 +41,9 @@ public class AdmProductController {
             @RequestParam("details") String details,
             @RequestParam("colorImages") List<MultipartFile> colorImages,
             @RequestParam("detailicon") MultipartFile detailicon,
-            @AuthenticationPrincipal Member member // 현재 로그인된 사용자를 가져옵니다.
+            @AuthenticationPrincipal Member member
     ) {
-        // ProductType을 문자열로 받아서 ProductType enum으로 변환합니다.
+
         ProductType type;
         try {
             type = ProductType.valueOf(productType.toUpperCase());
@@ -51,7 +51,7 @@ public class AdmProductController {
             throw new RuntimeException("Invalid product type: " + productType);
         }
 
-        // productService.create 메소드 호출
+
         productService.create(title, description, price, thumbnail, detailImgs, type, option, point,details,colorImages,detailicon);
 
         return "redirect:/adm/product/create"; // 상품 생성 후 다른 페이지로 리다이렉트

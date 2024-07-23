@@ -149,4 +149,11 @@ public class ProductService {
         Pageable pageable = PageRequest.of(page, 8, Sort.by(sorts));
         return productRepository.findAllByProductType(type, pageable);
     }
+    public void incrementHitCount(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+        product.setHitCount(product.getHitCount() + 1);
+        productRepository.save(product);
+    }
+
+
 }
