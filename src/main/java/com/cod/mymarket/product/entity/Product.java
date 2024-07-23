@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Entity
 @Getter
 @ToString
@@ -31,8 +33,8 @@ public class Product extends BaseEntity {
     //썸네일 디테일 설명
     private String details;
 
-    //썸네일 색상표와 디테일아이콘
-    private String color;
+    @ElementCollection
+    private List<String> colorImages;
     private String detailicon;
 
     @ManyToOne

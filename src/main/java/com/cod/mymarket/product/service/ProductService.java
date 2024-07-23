@@ -35,7 +35,7 @@ public class ProductService {
         return productRepository.findAllByKeyword(kw, pageable);
     }
 
-    public void create(String title, String description, int price, MultipartFile thumbnail, MultipartFile detailImg, ProductType type, String option, int point,String details,MultipartFile color,MultipartFile detailicon) {
+    public void create(String title, String description, int price, MultipartFile thumbnail, MultipartFile detailImg, ProductType type, String option, int point,String details,List<MultipartFile> colors,MultipartFile detailicon) {
        //썸네일
         String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
@@ -70,16 +70,19 @@ public class ProductService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //컬러아이콘
-        String colorRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
-        File colorFile = new File(genFileDirPath + "/" + colorRelPath);
+        //컬러
+        List<String> colorRelPaths = new ArrayList<>();
+        for (MultipartFile color : colors) {
+            String colorRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
+            File colorFile = new File(genFileDirPath + "/" + colorRelPath);
+            colorFile.getParentFile().mkdirs();
 
-        colorFile.getParentFile().mkdirs();
-
-        try {
-            color.transferTo(colorFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            try {
+                color.transferTo(colorFile);
+                colorRelPaths.add(colorRelPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         int calculatedPoint = calculatePoint(price);
@@ -94,13 +97,13 @@ public class ProductService {
                 .point(calculatedPoint)
                 .option(option)
                 .details(details)
-                .color(colorRelPath)
+                .colorImages(colorRelPaths)
                 .detailicon(detailiconRelPath)
                 .build();
         productRepository.save(p);
     }
 
-    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, String detailImgRelPath,String option, int point,String details,String colorRelPath,String detailiconRelPath) {
+    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, String detailImgRelPath,String option, int point,String details,List<String> colorRelPaths,String detailiconRelPath) {
         int calculatedPoint = calculatePoint(price);
 
         Product p = Product.builder()
@@ -112,7 +115,7 @@ public class ProductService {
                 .productType(type)
                 .point(calculatedPoint)
                 .details(details)
-                .color(colorRelPath)
+                .colorImages(colorRelPaths)
                 .detailicon(detailiconRelPath)
                 .build();
         productRepository.save(p);

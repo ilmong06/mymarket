@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/adm/product")
@@ -37,7 +39,7 @@ public class AdmProductController {
             @RequestParam(value = "option", required = false) String option,
             @RequestParam("point") int point,
             @RequestParam("details") String details,
-            @RequestParam("color") MultipartFile color,
+            @RequestParam("colorImages") List<MultipartFile> colorImages,
             @RequestParam("detailicon") MultipartFile detailicon,
             @AuthenticationPrincipal Member member // 현재 로그인된 사용자를 가져옵니다.
     ) {
@@ -50,7 +52,7 @@ public class AdmProductController {
         }
 
         // productService.create 메소드 호출
-        productService.create(title, description, price, thumbnail, detailImg, type, option, point,details,color,detailicon);
+        productService.create(title, description, price, thumbnail, detailImg, type, option, point,details,colorImages,detailicon);
 
         return "redirect:/adm/product/create"; // 상품 생성 후 다른 페이지로 리다이렉트
     }
