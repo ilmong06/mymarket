@@ -37,7 +37,7 @@ public class AdmProductController {
             @RequestParam(value = "option", required = false) String option,
             @RequestParam("point") int point,
             @RequestParam("details") String details,
-            @RequestParam("color") String color,
+            @RequestParam("color") MultipartFile color,
             @RequestParam("detailicon") MultipartFile detailicon,
             @AuthenticationPrincipal Member member // 현재 로그인된 사용자를 가져옵니다.
     ) {
