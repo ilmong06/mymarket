@@ -24,7 +24,10 @@ public class Product extends BaseEntity {
     private int hitCount;
     private String isActive;
     private String thumbnailImg;
-    private String detailImg;
+
+    @ElementCollection
+    private List<String> detailImgs;
+
     private String option;
 
     //적립금

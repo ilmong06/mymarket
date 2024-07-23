@@ -52,7 +52,9 @@
                 <span class="badge bg-dark">cod</span>
             </li>
             <li class="list-group-item">
-                <img class="w-full max-w-[300px]" th:src="@{|/gen/${product.detailImg}|}" alt="상품디테일이미지">
+                <div th:each="detailImg : ${product.detailImgs}" class="col-12 col-md-6 col-lg-4 mb-2">
+                    <img th:src="@{|/gen/${detailImg}|}" alt="상품 디테일 이미지">
+                </div>
             </li>
         </ul>
     </div>

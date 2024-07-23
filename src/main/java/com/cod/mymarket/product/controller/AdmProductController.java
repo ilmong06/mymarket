@@ -34,7 +34,7 @@ public class AdmProductController {
             @RequestParam("description") String description,
             @RequestParam("price") int price,
             @RequestParam("thumbnail") MultipartFile thumbnail,
-            @RequestParam("detailImg") MultipartFile detailImg,
+            @RequestParam("detailImgs") List<MultipartFile> detailImgs,
             @RequestParam("productType") String productType,
             @RequestParam(value = "option", required = false) String option,
             @RequestParam("point") int point,
@@ -52,7 +52,7 @@ public class AdmProductController {
         }
 
         // productService.create 메소드 호출
-        productService.create(title, description, price, thumbnail, detailImg, type, option, point,details,colorImages,detailicon);
+        productService.create(title, description, price, thumbnail, detailImgs, type, option, point,details,colorImages,detailicon);
 
         return "redirect:/adm/product/create"; // 상품 생성 후 다른 페이지로 리다이렉트
     }

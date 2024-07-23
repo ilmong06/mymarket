@@ -35,7 +35,7 @@ public class ProductService {
         return productRepository.findAllByKeyword(kw, pageable);
     }
 
-    public void create(String title, String description, int price, MultipartFile thumbnail, MultipartFile detailImg, ProductType type, String option, int point,String details,List<MultipartFile> colors,MultipartFile detailicon) {
+    public void create(String title, String description, int price, MultipartFile thumbnail, List<MultipartFile> detailImgs, ProductType type, String option, int point,String details,List<MultipartFile> colors,MultipartFile detailicon) {
        //썸네일
         String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
@@ -47,28 +47,19 @@ public class ProductService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//상세이미지
-        String detailImgRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
-        File detailImgFile = new File(genFileDirPath + "/" + detailImgRelPath);
+        // 상세이미지
+        List<String> detailImgRelPaths = new ArrayList<>();
+        for (MultipartFile detailImg : detailImgs) {
+            String detailImgRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
+            File detailImgFile = new File(genFileDirPath + "/" + detailImgRelPath);
+            detailImgFile.getParentFile().mkdirs();
 
-        detailImgFile.getParentFile().mkdirs();
-
-        try {
-            detailImg.transferTo(detailImgFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //디테일아이콘
-        String detailiconRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
-        File detailiconFile = new File(genFileDirPath + "/" + detailiconRelPath);
-
-        detailiconFile.getParentFile().mkdirs();
-
-        try {
-            detailicon.transferTo(detailiconFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            try {
+                detailImg.transferTo(detailImgFile);
+                detailImgRelPaths.add(detailImgRelPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         //컬러
         List<String> colorRelPaths = new ArrayList<>();
@@ -84,6 +75,18 @@ public class ProductService {
                 throw new RuntimeException(e);
             }
         }
+        //디테일아이콘
+        String detailiconRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
+        File detailiconFile = new File(genFileDirPath + "/" + detailiconRelPath);
+
+        detailiconFile.getParentFile().mkdirs();
+
+        try {
+            detailicon.transferTo(detailiconFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         int calculatedPoint = calculatePoint(price);
 
@@ -92,7 +95,7 @@ public class ProductService {
                 .description(description)
                 .price(price)
                 .thumbnailImg(thumbnailRelPath)
-                .detailImg(detailImgRelPath)
+                .detailImgs(detailImgRelPaths)
                 .productType(type)
                 .point(calculatedPoint)
                 .option(option)
@@ -103,7 +106,7 @@ public class ProductService {
         productRepository.save(p);
     }
 
-    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, String detailImgRelPath,String option, int point,String details,List<String> colorRelPaths,String detailiconRelPath) {
+    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, List<String> detailImgRelPaths,String option, int point,String details,List<String> colorRelPaths,String detailiconRelPath) {
         int calculatedPoint = calculatePoint(price);
 
         Product p = Product.builder()
@@ -111,7 +114,7 @@ public class ProductService {
                 .description(description)
                 .price(price)
                 .thumbnailImg(thumbnailRelPath)
-                .detailImg(detailImgRelPath)
+                .detailImgs(detailImgRelPaths)
                 .productType(type)
                 .point(calculatedPoint)
                 .details(details)
