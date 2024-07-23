@@ -26,7 +26,6 @@ public class ProductController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "kw", defaultValue = "") String kw
     ) {
-        // ProductType.TOP으로 필터링된 상품만 반환
         Page<Product> paging;
         if (kw.isEmpty()) {
             paging = productService.getByProductType(page, ProductType.TOP);
@@ -46,12 +45,11 @@ public class ProductController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "kw", defaultValue = "") String kw
     ) {
-        // ProductType.TOP으로 필터링된 상품만 반환
         Page<Product> paging;
         if (kw.isEmpty()) {
-            paging = productService.getByProductType(page, ProductType.BOTTOM);
+            paging = productService.getByProductType(page, ProductType.bottom);
         } else {
-            paging = productService.getByProductType(page, ProductType.BOTTOM);
+            paging = productService.getByProductType(page, ProductType.bottom);
         }
 
         model.addAttribute("paging", paging);
