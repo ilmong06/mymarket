@@ -2,3 +2,6 @@
    margin-top: 240px;
 }
 
+.custom-col-md-5 {
+    margin-left: -30px; /* 왼쪽으로 이동할 값 설정 */
+}
