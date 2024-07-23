@@ -47,4 +47,14 @@ public class MemberService {
             throw new UsernameNotFoundException("User not found");
         }
     }
+
+    public Member findByUserName(String username) {
+        Optional<Member> member = memberRepository.findByUsername(username);
+
+        if (member.isPresent()) {
+            return member.get();
+        } else {
+            throw new RuntimeException("member not found");
+        }
+    }
 }

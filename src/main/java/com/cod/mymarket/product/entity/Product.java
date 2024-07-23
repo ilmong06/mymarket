@@ -1,6 +1,7 @@
 package com.cod.mymarket.product.entity;
 
 import com.cod.mymarket.base.entity.BaseEntity;
+import com.cod.mymarket.cart.entity.CartItem;
 import com.cod.mymarket.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,9 @@ public class Product extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<CartItem> cartList;
 
     public void setHitCount(int hitCount) {
         this.hitCount = hitCount;
