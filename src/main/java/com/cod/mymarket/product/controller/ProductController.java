@@ -47,15 +47,69 @@ public class ProductController {
     ) {
         Page<Product> paging;
         if (kw.isEmpty()) {
-            paging = productService.getByProductType(page, ProductType.bottom);
+            paging = productService.getByProductType(page, ProductType.BOTTOM);
         } else {
-            paging = productService.getByProductType(page, ProductType.bottom);
+            paging = productService.getByProductType(page, ProductType.BOTTOM);
         }
 
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
         model.addAttribute("type", "BOTTOM"); // 추가: 현재 필터링된 타입을 HTML 템플릿에 전달
         return "product/bottomlist";
+    }
+    @GetMapping("/bslist")
+    public String bslist(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "kw", defaultValue = "") String kw
+    ) {
+        Page<Product> paging;
+        if (kw.isEmpty()) {
+            paging = productService.getByProductType(page, ProductType.BS);
+        } else {
+            paging = productService.getByProductType(page, ProductType.BS);
+        }
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        model.addAttribute("type", "BS"); // 추가: 현재 필터링된 타입을 HTML 템플릿에 전달
+        return "product/bslist";
+    }
+    @GetMapping("/dresslist")
+    public String dresslist(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "kw", defaultValue = "") String kw
+    ) {
+        Page<Product> paging;
+        if (kw.isEmpty()) {
+            paging = productService.getByProductType(page, ProductType.DRESS);
+        } else {
+            paging = productService.getByProductType(page, ProductType.DRESS);
+        }
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        model.addAttribute("type", "DRESS"); // 추가: 현재 필터링된 타입을 HTML 템플릿에 전달
+        return "product/dresslist";
+    }
+    @GetMapping("/outerlist")
+    public String outerlist(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "kw", defaultValue = "") String kw
+    ) {
+        Page<Product> paging;
+        if (kw.isEmpty()) {
+            paging = productService.getByProductType(page, ProductType.OUTER);
+        } else {
+            paging = productService.getByProductType(page, ProductType.OUTER);
+        }
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        model.addAttribute("type", "OUTER"); // 추가: 현재 필터링된 타입을 HTML 템플릿에 전달
+        return "product/outerlist";
     }
 
     @GetMapping("/detail/{id}")

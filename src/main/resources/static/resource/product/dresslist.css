@@ -1,0 +1,23 @@
+.info {
+   margin-top: 240px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin-bottom: 20px; /* 폼과의 여백 설정 */
+}
+.info h2 {
+    color: #303030; /* 텍스트 색상 설정 */
+    font-size: 17px; /* 텍스트 크기 설정 */
+    /* 텍스트 굵기 설정 */
+}
+.container {
+    font-family: 'Calibri';
+}
+
+.text-light-gray {
+    color: #a9a9a9; /* 연한 회색 */
+}
+.color-images-container {
+   display: flex;
+   flex-wrap: wrap; /* 필요한 경우 줄 바꿈 */
+   gap: 2px; /* 이미지 간의 간격 조정 */
+ }
+
