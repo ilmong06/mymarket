@@ -8,9 +8,7 @@
     font-size: 17px; /* 텍스트 크기 설정 */
     /* 텍스트 굵기 설정 */
 }
-.container{
-    font-family: 'Calibri';
-}
+
 .text-light-gray {
     color: #a9a9a9; /* 연한 회색 */
 }

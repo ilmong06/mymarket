@@ -78,7 +78,7 @@ header {
 }
 
 .nav-menu a {
-    font-family: 'Calibri'; /* 메뉴 글씨체를 GowunDodum-Regular로 변경 */
+    font-family: 'Calibri';
     text-decoration: none;
     font-weight: bold; /* 글씨 볼드체로 변경 */
     color: #3F3F3F;
@@ -87,7 +87,7 @@ header {
 }
 
 .nav-menu .divider {
-    font-family: 'Calibri'; /* 구분선의 글씨체를 GowunDodum-Regular로 변경 */
+    font-family: 'Calibri'; 
     margin-left: 25px; /* 구분선 왼쪽 마진 */
     font-size: 28px; /* 구분선 크기 조정 */
     margin-right: 25px; /* 구분선 오른쪽 마진 */
