@@ -52,21 +52,15 @@
                         <span>마켓 : </span>
                         <span class="badge bg-dark">cod</span>
                     </li>
+                    <li class="list-group-item">
+                        <form id="add-to-cart-form" th:action="@{|/cart/add/${product.id}|}" method="POST" onsubmit="addToCartAndConfirm(event)">
+                            <input type="submit" value="장바구니 담기" class="btn btn-outline-dark">
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
-        <!-- 장바구니 -->
-        <div class="card mt-4">
-            <div class="card-header">
-                장바구니 담기 & 수강신청
-            </div>
 
-            <div class="card-body">
-                <form id="add-to-cart-form" th:action="@{|/cart/add/${product.id}|}" method="POST" onsubmit="addToCartAndConfirm(event)">
-                    <input type="submit" value="장바구니 담기" class="btn btn-outline-dark">
-                </form>
-            </div>
-        </div>
         <!-- 상품 디테일 -->
         <div class="detail-imgs text-center">
             <h4>상품 디테일 이미지들:</h4>
