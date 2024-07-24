@@ -47,9 +47,9 @@
                         <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.point}+'원'" th:attr="data-title=${cartItem.product.point}"></a>
                     </td>
                     <td>
-<!--                        <select class="form-select quantity-select" data-price="${cartItem.product.price}">-->
-<!--                            <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}"></option>-->
-<!--                        </select>-->
+                        <select class="form-select quantity-select" th:attr="data-price=${cartItem.product.price}">
+                            <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}"></option>
+                        </select>
                     </td>
                     <td>
                         <a th:text="무료" ></a>
@@ -90,33 +90,35 @@
             $('.form-1__checkbox-all').prop('checked', allChecked);
         });
 
-        <!-- 총 합 계산 -->
+        // 수량 선택 변경 시 총합 계산
+        $('.quantity-select').change(function() {
+            calculateTotal();
+        });
+               // 총 합 계산
         function calculateTotal() {
             let titles = [];
-            let price = 0;
+            let totalPrice = 0;
 
             $('.form-1__checkbox-item:checked').each(function() {
                 let $row = $(this).closest('tr');
-                let dataTitle = $row.find('[data-title]').data('title');
-                let dataPrice = parseFloat($row.find('[data-price]').data('price'));
+                let quantity = parseInt($row.find('.quantity-select').val()); // 선택된 수량
+                let unitPrice = parseFloat($row.find('[data-price]').data('price')); // 단가
 
-                titles.push(dataTitle);
-                price += parseFloat(dataPrice);
+                titles.push($row.find('[data-title]').data('title'));
+                totalPrice += unitPrice * quantity; // 수량을 곱하여 가격 계산
             });
 
-            price = Math.round(price);
+            totalPrice = Math.round(totalPrice);
 
-            if (price > 0) {
-                $('#total-price').text('총합: ' + price.toLocaleString() + ' 원');
+            if (totalPrice > 0) {
+                $('#total-price').text(totalPrice.toLocaleString() + ' 원');
             } else {
-                $('#total-price').text(' 0원');
+                $('#total-price').text('0 원');
             }
 
-            price = Math.round(price);
-            let titlesString = titles.join(", ");
-
-            return {titlesString, price};
+            return { titlesString: titles.join(", "), price: totalPrice };
         }
+
 
         <!-- 구매 버튼 클릭 -->
         $('.btn-purchase').on('click', function(e) {
