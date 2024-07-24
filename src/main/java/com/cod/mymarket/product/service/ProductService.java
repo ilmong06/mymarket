@@ -35,7 +35,7 @@ public class ProductService {
         return productRepository.findAllByKeyword(kw, pageable);
     }
 
-    public void create(String title, String description, int price, MultipartFile thumbnail, List<MultipartFile> detailImgs, ProductType type, String option, int point,String details,List<MultipartFile> colors,MultipartFile detailicon) {
+    public void create(String title, String description, int price, MultipartFile thumbnail, List<MultipartFile> detailImgs, ProductType type, List<String> option, int point,String details,List<MultipartFile> colors,MultipartFile detailicon) {
        //썸네일
         String thumbnailRelPath = "product/" + UUID.randomUUID().toString() + ".jpg";
         File thumbnailFile = new File(genFileDirPath + "/" + thumbnailRelPath);
@@ -106,7 +106,7 @@ public class ProductService {
         productRepository.save(p);
     }
 
-    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, List<String> detailImgRelPaths,String option, int point,String details,List<String> colorRelPaths,String detailiconRelPath) {
+    public void create(String title, String description, int price, ProductType type, String thumbnailRelPath, List<String> detailImgRelPaths,List<String> option, int point,String details,List<String> colorRelPaths,String detailiconRelPath) {
         int calculatedPoint = calculatePoint(price);
 
         Product p = Product.builder()
@@ -118,6 +118,7 @@ public class ProductService {
                 .productType(type)
                 .point(calculatedPoint)
                 .details(details)
+                .option(option)
                 .colorImages(colorRelPaths)
                 .detailicon(detailiconRelPath)
                 .build();

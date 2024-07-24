@@ -27,7 +27,7 @@ public class DevInitData implements BeforeInitData {
 
 
             // product init
-            productService.create("타이틀1", "1 TOP 설명입니다.", 25000, ProductType.TOP, "product/product1.jpg", List.of("product/product1.jpg","product/product1.jpg"), null,12,"은은한컬러_주문폭주",  List.of("product/color-gray.jpg","product/color-red.jpg") ,"product/new.jpg");
+            productService.create("타이틀1", "1 TOP 설명입니다.", 25000, ProductType.TOP, "product/product1.jpg", List.of("product/product1.jpg","product/product1.jpg"), List.of("s","d"),12,"은은한컬러_주문폭주",  List.of("product/color-gray.jpg","product/color-red.jpg") ,"product/new.jpg");
             productService.create("타이틀2", "2 BOTTOM 설명입니다.", 20000, ProductType.BOTTOM, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
             productService.create("타이틀3", "3 DRESS 설명입니다.", 3000000, ProductType.DRESS, "product/product1.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
             productService.create("타이틀4", "4 OUTER 설명입니다.", 40000, ProductType.OUTER, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");

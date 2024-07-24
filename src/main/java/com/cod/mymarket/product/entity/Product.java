@@ -29,7 +29,7 @@ public class Product extends BaseEntity {
     @ElementCollection
     private List<String> detailImgs;
 
-    private String option;
+    private List<String> option;
 
     //적립금
     private int point;

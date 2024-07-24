@@ -36,7 +36,7 @@ public class AdmProductController {
             @RequestParam("thumbnail") MultipartFile thumbnail,
             @RequestParam("detailImgs") List<MultipartFile> detailImgs,
             @RequestParam("productType") String productType,
-            @RequestParam(value = "option", required = false) String option,
+            @RequestParam(value = "option", required = false) List<String> option,
             @RequestParam("point") int point,
             @RequestParam("details") String details,
             @RequestParam("colorImages") List<MultipartFile> colorImages,
