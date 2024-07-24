@@ -15,10 +15,10 @@
         <div class="mt-10">
             <table class="table">
                 <colgroup>
-                    <col style="width: 50px;">
-                    <col style="width: 200px;">
-                    <col style="width: 600px;">
-                    <col style="width: 300px;">
+                    <col style="width: 20px;">
+                    <col style="width: 130px;">
+                    <col style="width: 500px;">
+                    <col style="width: 150px;">
                 </colgroup>
 
                 <thead>
@@ -27,6 +27,8 @@
                     <th>이미지</th>
                     <th>상품명</th>
                     <th>적립금</th>
+                    <th>수량</th>
+                    <th>배송비</th>
                     <th>가격</th>
                     <th class="!px-[20px]">구매/삭제</th>
                 </tr>
@@ -43,6 +45,14 @@
                     </td>
                     <td>
                         <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.point}+'원'" th:attr="data-title=${cartItem.product.point}"></a>
+                    </td>
+                    <td>
+<!--                        <select class="form-select quantity-select" data-price="${cartItem.product.price}">-->
+<!--                            <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}"></option>-->
+<!--                        </select>-->
+                    </td>
+                    <td>
+                        <a th:text="무료" ></a>
                     </td>
                     <td th:text="${#numbers.formatInteger(cartItem.product.price, 3, 'COMMA') + '원'}" th:attr="data-price=${cartItem.product.price}"></td>
                     <td>
@@ -153,7 +163,5 @@
             tossPayments.requestPayment(method, requestJson)
         }
     </script>
-
-
 </section>
 </html>
