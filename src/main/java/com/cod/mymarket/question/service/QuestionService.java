@@ -7,6 +7,7 @@ import com.cod.mymarket.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ public class QuestionService {
         Question q = Question.builder()
                 .member(member)
                 .content(content)
+                .createdDate(LocalDateTime.now())
                 .build();
 
         questionRepository.save(q);
