@@ -23,11 +23,9 @@ public class QuestionController {
     @GetMapping("/qlist")
     public String questionList(Model model, Principal principal) {
         List<Question> allQuestions = questionService.getAllQuestions();
-
-
+        model.addAttribute("questions", allQuestions); // 모델에 질문 목록 추가
         return "question/qlist";
     }
-
     @PostMapping("/qlist")
     public String submitQuestion(
             @RequestParam("content") String content,
