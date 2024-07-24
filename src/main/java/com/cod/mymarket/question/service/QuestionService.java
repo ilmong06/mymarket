@@ -16,16 +16,24 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
-    public void create( Member member, String content) {
+    public void create( Member member, String content,String title,String password) {
         Question q = Question.builder()
                 .member(member)
                 .content(content)
+                .title(title)
+                .password(password)
                 .createdDate(LocalDateTime.now())
                 .build();
 
         questionRepository.save(q);
     }
-
+    public boolean verifyPassword(Long id, String password) {
+        Optional<Question> question = questionRepository.findById(id);
+        if (question.isPresent()) {
+            return question.get().getPassword().equals(password);
+        }
+        return false;
+    }
     public Question getQuestion(Long id) {
         return questionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Question not found"));

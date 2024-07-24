@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Question extends BaseEntity {
     private String content;
+    private String title;
+    private String password;
 
     @ManyToOne
     private Member member;
