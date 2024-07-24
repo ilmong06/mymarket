@@ -68,6 +68,36 @@
                 <button class="btn btn-outline-dark btn-purchase">결제하기</button>
             </div>
         </div>
+        <!-- 총 주문 금액 테이블 -->
+        <table>
+            <colgroup>
+                <col style="width:17%;">
+                <col style="width:17%;" class="displaynone">
+                <col style="width:19%;">
+                <col style="width:17%;" class="displaynone">
+                <col style="width:auto;">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col"><strong>총 상품금액</strong></th>
+                <th scope="col"><strong>총 배송비</strong></th>
+                <th scope="col"><strong>결제예정금액</strong></th>
+            </tr>
+            </thead>
+            <tbody class="center">
+            <tr>
+                <td><div class="box txt16">
+                    <strong>KRW <span class="txt23"><span id="total-product-price" class="total_product_price_display_front">0</span></span></strong>
+                </div></td>
+                <td class="displaynone"><div class="box txt16">
+                    <strong>KRW <span class="txt23"><span id="total-vat-price" class="total_product_vat_price_front">0</span></span></strong>
+                </div></td>
+                <td><div class="box shipping txt16">
+                    <strong class="txt23">+ </strong><strong>KRW <span id="total-shipping-price" class="txt23">0</span></strong>
+                </div></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <script src="https://js.tosspayments.com/v1"></script>
