@@ -57,4 +57,10 @@ public class MemberService {
             throw new RuntimeException("member not found");
         }
     }
+
+    // 사용자의 이름(또는 ID)으로 회원을 찾는 메서드
+    public Member findByUsername(String username) {
+        return memberRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
+    }
 }
