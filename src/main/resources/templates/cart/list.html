@@ -13,7 +13,7 @@
     <div class="container">
 
         <div class="mt-10">
-            <table class="table table-hover">
+            <table class="table">
                 <colgroup>
                     <col style="width: 50px;">
                     <col style="width: 200px;">
@@ -22,33 +22,33 @@
                 </colgroup>
 
                 <thead>
-                    <tr>
-                        <th><input type="checkbox" class="form-1__checkbox-all"></th>
-                        <th>이미지</th>
-                        <th>상품명</th>
-                        <th>적립금</th>
-                        <th>가격</th>
-                        <th class="!px-[20px]">구매/삭제</th>
-                    </tr>
+                <tr>
+                    <th><input type="checkbox" class="form-1__checkbox-all"></th>
+                    <th>이미지</th>
+                    <th>상품명</th>
+                    <th>적립금</th>
+                    <th>가격</th>
+                    <th class="!px-[20px]">구매/삭제</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="cartItem : ${cartList}" class="align-middle whitespace-nowrap">
-                        <td><input type="checkbox" class="form-1__checkbox-item"></td>
-                        <td>
-                            <a th:href="@{|/product/detail/${cartItem.product.id}|}"><img class="w-[50px] h-[50px] sm:w-[100px] sm:h-[100px] object-cover" th:src="@{|/gen/${cartItem.product.thumbnailImg}|}"  alt="상품이미지"></a>
-                        </td>
-                        <td>
-                            <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.title}" th:attr="data-title=${cartItem.product.title}"></a>
-                            <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="'[옵션:'+${cartItem.product.option}+']'" th:attr="data-title=${cartItem.product.option}"></a>
-                        </td>
-                        <td>
-                            <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.point}+'원'" th:attr="data-title=${cartItem.product.point}"></a>
-                        </td>
-                        <td th:text="${#numbers.formatInteger(cartItem.product.price, 3, 'COMMA') + '원'}" th:attr="data-price=${cartItem.product.price}"></td>
-                        <td>
-                            <a href="#" type="button" class="btn btn-link">삭제</a>
-                        </td>
-                    </tr>
+                <tr th:each="cartItem : ${cartList}" class="align-middle whitespace-nowrap">
+                    <td><input type="checkbox" class="form-1__checkbox-item"></td>
+                    <td>
+                        <a th:href="@{|/product/detail/${cartItem.product.id}|}"><img class="w-[50px] h-[50px] sm:w-[100px] sm:h-[100px] object-cover" th:src="@{|/gen/${cartItem.product.thumbnailImg}|}" alt="상품이미지"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.title}" th:attr="data-title=${cartItem.product.title}"></a>
+                        <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="'[옵션:'+${cartItem.product.option}+']'" th:attr="data-title=${cartItem.product.option}"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.point}+'원'" th:attr="data-title=${cartItem.product.point}"></a>
+                    </td>
+                    <td th:text="${#numbers.formatInteger(cartItem.product.price, 3, 'COMMA') + '원'}" th:attr="data-price=${cartItem.product.price}"></td>
+                    <td>
+                        <a href="#" type="button" class="btn btn-link">삭제</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
 
