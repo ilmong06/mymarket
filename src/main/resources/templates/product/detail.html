@@ -99,6 +99,37 @@
                 </div>
             </div>
         </div>
+        <!-- 질문 목록 테이블 -->
+        <h3 class="mt-5">질문 목록</h3>
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th>질문 ID</th>
+                <th>회원</th>
+                <th>내용</th>
+                <th>작성일</th>
+                <th>비밀번호</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="question : ${product.questionList}">
+                <td th:text="${question.id}"></td>
+                <td th:text="${question.member.username}"></td>
+                <td>
+                    <form th:action="@{|/question/create/${question.id}|}"  method="POST">
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control" placeholder="비밀번호 입력" required>
+                            <button type="submit" class="btn btn-primary">보기</button>
+                        </div>
+                    </form>
+                    <div th:if="${question.id == viewedQuestion?.id}">
+                        <p th:text="${viewedQuestion?.content}"></p>
+                    </div>
+                </td>
+                <td th:text="${question.createdDate}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <script>

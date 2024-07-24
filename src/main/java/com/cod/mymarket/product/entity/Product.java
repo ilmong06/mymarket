@@ -3,6 +3,7 @@ package com.cod.mymarket.product.entity;
 import com.cod.mymarket.base.entity.BaseEntity;
 import com.cod.mymarket.cart.entity.CartItem;
 import com.cod.mymarket.member.entity.Member;
+import com.cod.mymarket.question.entity.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,6 +47,9 @@ public class Product extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<Question> questionList;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<CartItem> cartList;
