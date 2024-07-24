@@ -119,36 +119,39 @@
             let allChecked = $('.form-1__checkbox-item:not(:checked)').length == 0;
             $('.form-1__checkbox-all').prop('checked', allChecked);
         });
-
+    // 체크박스 변경 시 총합 계산
+        document.querySelectorAll('.form-1__checkbox-item').forEach(item => {
+            item.addEventListener('change', function() {
+                calculateTotal();
+                const allChecked = document.querySelectorAll('.form-1__checkbox-item:not(:checked)').length === 0;
+                document.querySelector('.form-1__checkbox-all').checked = allChecked;
+            });
+        })
         // 수량 선택 변경 시 총합 계산
         $('.quantity-select').change(function() {
             calculateTotal();
         });
-              // 총 합 계산
+             // 총 합 계산
         function calculateTotal() {
             let totalProductPrice = 0;
+            let totalShippingPrice = 0; // 배송비는 무료로 고정
             let totalOrderPrice = 0;
 
-            $('.form-1__checkbox-item:checked').each(function() {
-                let $row = $(this).closest('tr');
-                let quantity = parseInt($row.find('.quantity-select').val(), 10); // 선택된 수량
-                let unitPrice = parseFloat($row.find('[data-price]').data('price')); // 단가
+            document.querySelectorAll('.form-1__checkbox-item:checked').forEach(item => {
+                const row = item.closest('tr');
+                const quantity = parseInt(row.querySelector('.quantity-select').value, 10); // 선택된 수량
+                const unitPrice = parseFloat(row.querySelector('[data-price]').dataset.price); // 단가
                 totalProductPrice += unitPrice * quantity; // 총 상품금액 계산
             });
 
-            let totalShippingPrice = 0; // 배송비는 무료로 고정
             totalOrderPrice = totalProductPrice + totalShippingPrice;
 
             // 총 가격 업데이트
-            $('#total-price').text(totalProductPrice.toLocaleString() + ' 원');
-            $('#total-product-price').text(totalProductPrice.toLocaleString());
-            $('#total-shipping-price').text(totalShippingPrice.toLocaleString());
-            $('#total-order-price').text(totalOrderPrice.toLocaleString());
-
-            return { price: totalOrderPrice };
+            document.getElementById('total-price').textContent = totalProductPrice.toLocaleString() + ' 원';
+            document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
+            document.getElementById('total-shipping-price').textContent = totalShippingPrice.toLocaleString();
+            document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
         }
-
-
         <!-- 구매 버튼 클릭 -->
         $('.btn-purchase').on('click', function(e) {
             e.preventDefault();
