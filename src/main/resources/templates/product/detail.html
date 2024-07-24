@@ -71,6 +71,34 @@
                 </div>
             </div>
         </div>
+        <div class="card mt-[30px]">
+            <div class="card-header">
+                질문등록
+            </div>
+
+            <div class="card-body">
+                <form sec:authorize="isAuthenticated()" th:action="@{|/question/create/${product.id}|}" method="POST">
+                    <div class="mt-3">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">제목</label>
+                            <input type="text" name="title" id="title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">내용</label>
+                            <textarea name="content" id="content" class="form-control" rows="7" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">비밀번호</label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                        </div>
+                        <input type="submit" value="등록하기" class="btn btn-dark">
+                    </div>
+                </form>
+                <div sec:authorize="isAnonymous()">
+                    <a th:href="@{/member/login}">로그인</a> 후 이용해주세요.
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>

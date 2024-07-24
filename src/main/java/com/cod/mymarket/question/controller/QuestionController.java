@@ -3,6 +3,7 @@ package com.cod.mymarket.question.controller;
 import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.member.service.MemberService;
 import com.cod.mymarket.product.entity.Product;
+import com.cod.mymarket.product.service.ProductService;
 import com.cod.mymarket.question.entity.Question;
 import com.cod.mymarket.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.List;
 public class QuestionController {
     private final QuestionService questionService;
     private final MemberService memberService;
+    private final ProductService productService;
 
     @GetMapping("/qlist")
     public String questionList(Model model, Principal principal) {
@@ -42,7 +44,22 @@ public class QuestionController {
 
         return String.format("redirect:/question/qlist");
     }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/create/{id}")
+    public String create(
+            @PathVariable("id") Long id,
+            @RequestParam("content") String content,
+            @RequestParam("title") String title,
+            @RequestParam("password") String password,
+            Principal principal
+    ) {
+        Product product = productService.getProduct(id);
+        Member member = memberService.findByUserName(principal.getName());
 
+        questionService.create(product, member, content,title,password);
+
+        return String.format("redirect:/product/detail/%s", id);
+    }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/view/{id}")
