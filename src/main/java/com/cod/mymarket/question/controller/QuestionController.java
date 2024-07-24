@@ -2,6 +2,7 @@ package com.cod.mymarket.question.controller;
 
 import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.member.service.MemberService;
+import com.cod.mymarket.product.entity.Product;
 import com.cod.mymarket.question.entity.Question;
 import com.cod.mymarket.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -34,30 +35,15 @@ public class QuestionController {
             @RequestParam("password") String password,
             Principal principal
     ) {
+        Product product = null;
         Member member = memberService.findByUsername(principal.getName());
 
-        questionService.create(member, content,title,password);
+        questionService.create(product,member, content,title,password);
 
         return String.format("redirect:/question/qlist");
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/view/{id}")
-//    public String QuestionWithPassword(
-//            @PathVariable("id") Long id,
-//            @RequestParam("password") String password,
-//            Model model
-//    ) {
-//        if (questionService.verifyPassword(id, password)) {
-//            Question question = questionService.getQuestion(id);
-//            model.addAttribute("question", question);
-//        } else {
-//            model.addAttribute("error", "Invalid password");
-//        }
-//        List<Question> allQuestions = questionService.getAllQuestions();
-//        model.addAttribute("questions", allQuestions); // 다시 질문 목록을 모델에 추가
-//        return String.format("redirect:/question/qlist/%s",id);
-//    }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/view/{id}")
     public String viewQuestionWithPassword(

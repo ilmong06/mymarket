@@ -16,9 +16,10 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
-    public void create( Member member, String content,String title,String password) {
+    public void create(Product product,Member member, String content,String title,String password) {
         Question q = Question.builder()
                 .member(member)
+                .product(product)
                 .content(content)
                 .title(title)
                 .password(password)
