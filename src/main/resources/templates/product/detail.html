@@ -111,7 +111,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="question : ${allQuestions}">
+            <tr th:each="question : ${product.questionList}">
                 <td th:text="${question.id}"></td>
                 <td th:text="${question.member.username}"></td>
                 <td th:text="${question.member.username == currentUsername} ? ${question.content} : '비밀글입니다'"></td>
@@ -119,8 +119,68 @@
             </tr>
             </tbody>
         </table>
+        <!-- 리뷰 등록 폼 -->
+        <div class="card mt-4">
+            <div class="card-header">
+                리뷰등록
+            </div>
+            <div class="card-body">
+                <form sec:authorize="isAuthenticated()" th:action="@{|/review/create/${product.id}|}" method="POST" enctype="multipart/form-data">
+                    <div class="mt-3">
+                        <div class="mb-3">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="score">별점</label>
+                            <input type="score" class="form-control" id="score" name="score" min="1" max="5">
+                        </div>
+                        <div class="mb-3">
+                            <label for="content">내용</label>
+                            <textarea class="form-control" id="content" name="content"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewImgs">이미지 업로드</label>
+                            <input type="file" class="form-control" id="reviewImgs" name="reviewImgs" multiple>
+                        </div>
+                    </div>
+                    <div class="float-end mt-3">
+                        <button type="submit" class="btn btn-primary">등록하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <h3 class="mt-5">리뷰 목록</h3>
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>별점</th>
+                <th>내용</th>
+                <th>이미지</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 각 리뷰를 반복하여 테이블에 출력 -->
+            <tr th:each="review : ${product.reviewList}">
+                <td th:text="${review.title}"></td>
+                <td th:text="${review.score}"></td>
+                <td th:text="${review.content}"></td>
+                <td>
+                    <!-- 리뷰 이미지 리스트를 반복하여 출력 -->
+                    <div th:each="imageUrl : ${review.reviewImages}">
+                        <img th:src="@{|/gen/${imageUrl}|}" style="width: 50px; height: 50px; object-fit: cover;" alt="리뷰 이미지">
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>
+
+
 <script>
     function addToCartAndConfirm(event) {
         event.preventDefault(); // 폼 제출을 방지합니다.

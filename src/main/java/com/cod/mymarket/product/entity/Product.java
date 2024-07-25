@@ -4,6 +4,7 @@ import com.cod.mymarket.base.entity.BaseEntity;
 import com.cod.mymarket.cart.entity.CartItem;
 import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.question.entity.Question;
+import com.cod.mymarket.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +54,9 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<CartItem> cartList;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<Review> reviewList;
 
     public void setHitCount(int hitCount) {
         this.hitCount = hitCount;
