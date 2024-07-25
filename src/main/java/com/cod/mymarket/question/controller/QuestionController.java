@@ -78,4 +78,5 @@ public class QuestionController {
         model.addAttribute("questions", allQuestions); // 다시 질문 목록을 모델에 추가
         return "question/qlist";
     }
+
 }

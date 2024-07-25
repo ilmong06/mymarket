@@ -3,6 +3,8 @@ package com.cod.mymarket.product.controller;
 import com.cod.mymarket.product.entity.Product;
 import com.cod.mymarket.product.entity.ProductType;
 import com.cod.mymarket.product.service.ProductService;
+import com.cod.mymarket.question.entity.Question;
+import com.cod.mymarket.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -19,6 +22,7 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
+    private final QuestionService questionService;
 
     @GetMapping("/toplist")
     public String toplist(
@@ -113,10 +117,14 @@ public class ProductController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@PathVariable("id") Long id, Model model, Principal principal) {
         productService.incrementHitCount(id);
         Product product = productService.getProduct(id);
+        String currentUsername = principal != null ? principal.getName() : "";
+        List<Question> allQuestions = questionService.getQuestionsByProduct(id);
 
+        model.addAttribute("allQuestions", allQuestions);
+        model.addAttribute("currentUsername", currentUsername);
         model.addAttribute("product", product);
         System.out.println(product.toString());
 
