@@ -150,10 +150,15 @@
                             <label for="title">제목</label>
                             <input type="text" class="form-control" id="title" name="title">
                         </div>
-                        <div class="mb-3">
-                            <label for="score">별점</label>
-                            <input type="score" class="form-control" id="score" name="score" min="1" max="5">
+                        <div class="rating">
+                            <span class="star" data-value="1">&#9734;</span>
+                            <span class="star" data-value="2">&#9734;</span>
+                            <span class="star" data-value="3">&#9734;</span>
+                            <span class="star" data-value="4">&#9734;</span>
+                            <span class="star" data-value="5">&#9734;</span>
                         </div>
+
+                        <input type="hidden" id="score" name="score">
                         <div class="mb-3">
                             <label for="content">내용</label>
                             <textarea class="form-control" id="content" name="content"></textarea>
@@ -253,6 +258,43 @@
         document.body.appendChild(form);
         form.submit();
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.rating .star');
+    const scoreInput = document.getElementById('score');
+
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            const value = this.getAttribute('data-value');
+            scoreInput.value = value;
+
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= value) {
+                    s.classList.add('selected');
+                } else {
+                    s.classList.remove('selected');
+                }
+            });
+        });
+
+        star.addEventListener('mouseover', function() {
+            const value = this.getAttribute('data-value');
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= value) {
+                    s.classList.add('hover');
+                } else {
+                    s.classList.remove('hover');
+                }
+            });
+        });
+
+        star.addEventListener('mouseout', function() {
+            stars.forEach(s => {
+                s.classList.remove('hover');
+            });
+        });
+    });
+});
 </script>
 </body>
 </html>

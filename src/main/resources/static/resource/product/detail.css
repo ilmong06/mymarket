@@ -5,3 +5,23 @@
 .custom-col-md-5 {
     margin-left: -30px; /* 왼쪽으로 이동할 값 설정 */
 }
+.rating {
+    font-size: 2rem; /* 별의 크기 */
+    text-align: center;
+}
+
+.rating .star {
+    display: inline-block;
+    cursor: pointer;
+    color: #ccc; /* 빈 별 색상 */
+    transition: color 0.2s; /* 색상 전환 효과 */
+}
+
+.rating .star.selected,
+.rating .star:hover {
+    color: #f5c518; /* 선택된 별 색상 */
+}
+
+.rating .star.hover {
+    color: #f5c518; /* 호버 시 별 색상 */
+}
