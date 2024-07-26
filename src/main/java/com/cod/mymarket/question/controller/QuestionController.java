@@ -46,22 +46,24 @@ public class QuestionController {
 
         return String.format("redirect:/question/qlist");
     }
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create/{id}")
-    public String create(
-            @PathVariable("id") Long id,
-            @RequestParam("content") String content,
-            @RequestParam("title") String title,
-            @RequestParam("password") String password,
-            Principal principal
-    ) {
-        Product product = productService.getProduct(id);
-        Member member = memberService.findByUserName(principal.getName());
 
-        questionService.create(product, member, content,title,password);
-
-        return String.format("redirect:/product/detail/%s", id);
-    }
+    //디테일페이지에서의 질문
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/create/{id}")
+//    public String create(
+//            @PathVariable("id") Long id,
+//            @RequestParam("content") String content,
+//            @RequestParam("title") String title,
+//            @RequestParam("password") String password,
+//            Principal principal
+//    ) {
+//        Product product = productService.getProduct(id);
+//        Member member = memberService.findByUserName(principal.getName());
+//
+//        questionService.create(product, member, content,title,password);
+//
+//        return String.format("redirect:/product/detail/%s", id);
+//    }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/view/{id}")
@@ -94,8 +96,7 @@ public class QuestionController {
         }
 
         questionService.modify(question, content);
-
-        return "redirect:/product/detail/" + question.getProduct().getId();
+        return "redirect:/question/qlist";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -103,13 +104,12 @@ public class QuestionController {
     public String delete(@PathVariable("id") Long id, Principal principal) {
         Question question = questionService.getQuestion(id);
         questionService.delete(question);
-        long productId = question.getProduct().getId();
 
         if ( !question.getMember().getUsername().equals(principal.getName()) ) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한 없음");
         }
 
-        return String.format("redirect:/product/detail/%s", productId);
+        return String.format("question/qlist");
     }
 
 }
