@@ -115,7 +115,26 @@
                 <td th:text="${question.id}"></td>
                 <td th:text="${question.member.username}"></td>
                 <td th:text="${question.member.username == currentUsername} ? ${question.content} : '비밀글입니다'"></td>
-                <td th:text="${question.createdDate}"></td>
+                <td>
+                    <a
+                        th:href="@{|/question/delete/${question.id}|}"
+                        class="btn btn-sm btn-link"
+                        onclick="if ( confirm('정말 삭제하시겠습니까?' ) == false ) return false;"
+                        sec:authorize="isAuthenticated()"
+                        th:if="${question.member != null and #authentication.getPrincipal().getUsername() == question.member.username}"
+                    >
+                        삭제
+                    </a>
+                    <h2>질문 수정</h2>
+                    <form sec:authorize="isAuthenticated()" th:action="@{|/question/modify/${question.id}|}" method="POST">
+                        <div class="mb-3">
+                            <label for="content" class="form-label">내용</label>
+                            <textarea name="content" id="content" class="form-control" rows="5" required th:text="${question.content}"></textarea>
+                        </div>
+                        <input type="hidden" name="id" value="${question.id}">
+                        <button type="submit" class="btn btn-primary">수정하기</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -220,6 +239,20 @@
             sessionStorage.removeItem('scrollPosition');
         }
     });
+      function editQuestion(questionId) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/question/modify/${questionId}`;
+
+        const contentInput = document.createElement('input');
+        contentInput.type = 'hidden';
+        contentInput.name = 'content';
+        contentInput.value = '기존 내용';  // 기존 내용을 JavaScript에서 동적으로 할당할 수 있습니다.
+        form.appendChild(contentInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
 </script>
 </body>
 </html>

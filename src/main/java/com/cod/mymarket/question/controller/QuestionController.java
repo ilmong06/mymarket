@@ -7,11 +7,13 @@ import com.cod.mymarket.product.service.ProductService;
 import com.cod.mymarket.question.entity.Question;
 import com.cod.mymarket.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -77,6 +79,37 @@ public class QuestionController {
         List<Question> allQuestions = questionService.getAllQuestions();
         model.addAttribute("questions", allQuestions); // 다시 질문 목록을 모델에 추가
         return "question/qlist";
+    }
+
+    @PostMapping("/modify/{id}")
+    public String modifyQuestion(
+            @PathVariable("id") Long id,
+            @RequestParam("content") String content,
+            Principal principal
+    ) {
+        Question question = questionService.getQuestion(id);
+
+        if (!question.getMember().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한 없음");
+        }
+
+        questionService.modify(question, content);
+
+        return "redirect:/product/detail/" + question.getProduct().getId();
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id, Principal principal) {
+        Question question = questionService.getQuestion(id);
+        questionService.delete(question);
+        long productId = question.getProduct().getId();
+
+        if ( !question.getMember().getUsername().equals(principal.getName()) ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한 없음");
+        }
+
+        return String.format("redirect:/product/detail/%s", productId);
     }
 
 }
