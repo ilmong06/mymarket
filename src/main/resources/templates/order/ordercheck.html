@@ -9,9 +9,30 @@
 <body>
 <div layout:fragment="content" class="container mt-5">
     <div class="info">
-        <h2>주문에 성공하였습니다. 주문상세내역으로 이동하기</h2>
-        <li><a href="/order/ordercheck">ORDER</a></li>
+        <h2>주문 상세 내역</h2>
     </div>
+
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>주문 번호</th>
+            <th>재품명</th>
+            <th>수량</th>
+            <th>가격</th>
+            <th>주문 날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="question : ${questions}">
+            <td th:text="${}"></td>
+            <td th:text="${}"></td>
+            <td th:text="${}"></td>
+            <td th:text="${}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+<script>
+</script>
 </body>
 </html>

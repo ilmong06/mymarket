@@ -104,4 +104,10 @@ public class OrderController {
         return "order/fail";
     }
 
+
+    @GetMapping("/ordercheck")
+    public String orderCheck() {
+        return "order/ordercheck";
+    }
+
 }
