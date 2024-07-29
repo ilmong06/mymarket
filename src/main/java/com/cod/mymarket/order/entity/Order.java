@@ -1,7 +1,7 @@
-package com.cod.market.oder.entity;
+package com.cod.mymarket.order.entity;
 
-import com.cod.market.base.entity.BaseEntity;
-import com.cod.market.member.entity.Member;
+import com.cod.mymarket.base.entity.BaseEntity;
+import com.cod.mymarket.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -40,6 +40,10 @@ dependencies {
 
 	// 소셜로그인
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	// 토스페이먼츠
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 tasks.named('test') {

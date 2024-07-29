@@ -1,6 +1,6 @@
-package com.cod.market.oder.repository;
+package com.cod.mymarket.order.repository;
 
-import com.cod.market.oder.entity.Order;
+import com.cod.mymarket.order.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.cod.market.oder.service;
+package com.cod.mymarket.order.service;
 
-import com.cod.market.oder.entity.Order;
-import com.cod.market.oder.repository.OrderRepository;
+import com.cod.mymarket.order.entity.Order;
+import com.cod.mymarket.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,7 @@
-package com.cod.market.oder.controller;
+package com.cod.mymarket.order.controller;
 
-import com.cod.market.oder.service.OrderService;
-import com.cod.market.product.entity.Product;
-import com.cod.market.product.service.ProductService;
+import com.cod.mymarket.order.service.OrderService;
+import com.cod.mymarket.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

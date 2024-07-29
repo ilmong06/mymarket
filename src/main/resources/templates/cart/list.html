@@ -11,7 +11,6 @@
         <h2>CART</h2>
     </div>
     <div class="container">
-
         <div class="mt-10">
             <table class="table">
                 <colgroup>
@@ -20,7 +19,6 @@
                     <col style="width: 500px;">
                     <col style="width: 150px;">
                 </colgroup>
-
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="form-1__checkbox-all"></th>
@@ -61,7 +59,6 @@
                 </tr>
                 </tbody>
             </table>
-
             <div class="text-right">
                 <span class="text-[1.1rem] font-bold">총 가격</span>
                 <span id="total-price">0 원</span>
@@ -104,64 +101,57 @@
     <script th:inline="javascript">
         <!-- 체크박스 전체 클릭 -->
         $('.form-1__checkbox-all').change(function() {
-            if ( this.checked ) {
+            if (this.checked) {
                 $('.form-1__checkbox-item:not(:checked)').prop('checked', true);
             } else {
                 $('.form-1__checkbox-item').prop('checked', false);
             }
-
             calculateTotal();
         });
 
         $('.form-1__checkbox-item').change(function() {
             calculateTotal();
-
             let allChecked = $('.form-1__checkbox-item:not(:checked)').length == 0;
             $('.form-1__checkbox-all').prop('checked', allChecked);
         });
-    // 체크박스 변경 시 총합 계산
-        document.querySelectorAll('.form-1__checkbox-item').forEach(item => {
-            item.addEventListener('change', function() {
-                calculateTotal();
-                const allChecked = document.querySelectorAll('.form-1__checkbox-item:not(:checked)').length === 0;
-                document.querySelector('.form-1__checkbox-all').checked = allChecked;
-            });
-        })
-        // 수량 선택 변경 시 총합 계산
+
         $('.quantity-select').change(function() {
             calculateTotal();
         });
-             // 총 합 계산
+
         function calculateTotal() {
             let totalProductPrice = 0;
-            let totalShippingPrice = 0; // 배송비는 무료로 고정
+            let totalShippingPrice = 0;
             let totalOrderPrice = 0;
+            let titles = [];
 
-            document.querySelectorAll('.form-1__checkbox-item:checked').forEach(item => {
-                const row = item.closest('tr');
-                const quantity = parseInt(row.querySelector('.quantity-select').value, 10); // 선택된 수량
-                const unitPrice = parseFloat(row.querySelector('[data-price]').dataset.price); // 단가
-                totalProductPrice += unitPrice * quantity; // 총 상품금액 계산
+            $('.form-1__checkbox-item:checked').each(function() {
+                let $row = $(this).closest('tr');
+                let dataTitle = $row.find('[data-title]').data('title');
+                let quantity = parseInt($row.find('.quantity-select').val(), 10);
+                let unitPrice = parseFloat($row.find('[data-price]').data('price'));
+
+                titles.push(dataTitle);
+                totalProductPrice += unitPrice * quantity;
             });
 
             totalOrderPrice = totalProductPrice + totalShippingPrice;
 
-            // 총 가격 업데이트
             document.getElementById('total-price').textContent = totalProductPrice.toLocaleString() + ' 원';
             document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
             document.getElementById('total-shipping-price').textContent = totalShippingPrice.toLocaleString();
             document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
+
+            return {titlesString: titles.join(", "), price: totalOrderPrice};
         }
-        <!-- 구매 버튼 클릭 -->
+
         $('.btn-purchase').on('click', function(e) {
             e.preventDefault();
             let result = calculateTotal();
             pay(result.titlesString, result.price);
         });
 
-
-        <!-- 토스페이먼츠 -->
-        let tossPayments = TossPayments(""); // 테스트 클라이언트 키
+        let tossPayments = TossPayments("test_ck_oEjb0gm23PbewLWyQbRkrpGwBJn5");
 
         let path = "/order/";
         let successUrl = window.location.origin + path + "success";
@@ -170,8 +160,10 @@
         let orderId = new Date().getTime();
 
         function pay(title, price) {
-
-            if (price == 0) { alert('상품을 선택해주세요'); }
+            if (price == 0) {
+                alert('상품을 선택해주세요');
+                return;
+            }
             const method = "카드";
 
             const requestJson = {
@@ -194,7 +186,7 @@
                 appScheme: null,
             }
 
-            tossPayments.requestPayment(method, requestJson)
+            tossPayments.requestPayment(method, requestJson);
         }
     </script>
 </section>
