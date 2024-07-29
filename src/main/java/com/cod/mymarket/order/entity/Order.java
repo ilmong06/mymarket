@@ -28,4 +28,22 @@ public class Order extends BaseEntity {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<OrderItem> orderItemList;
+
+    // 필요한 필드 추가
+    private String orderId;
+    private Integer amount;
+    private String paymentKey;
+
+    // setter 추가
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public void setPaymentKey(String paymentKey) {
+        this.paymentKey = paymentKey;
+    }
 }

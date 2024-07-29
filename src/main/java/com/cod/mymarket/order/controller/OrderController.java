@@ -1,5 +1,6 @@
 package com.cod.mymarket.order.controller;
 
+import com.cod.mymarket.order.entity.Order;
 import com.cod.mymarket.order.service.OrderService;
 import com.cod.mymarket.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,10 @@ public class OrderController {
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encodedBytes = encoder.encode(paymentSecretKey.getBytes("UTF-8"));
         String authorizations = "Basic " + new String(encodedBytes, 0, encodedBytes.length);
+        String username = paymentSecretKey;
+        String password = "";  // 비밀번호가 필요 없다면 빈 문자열로 둡니다.
+        String auth = username + ":" + password;
+        String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
 
         URL url = new URL("https://api.tosspayments.com/v1/payments/" + paymentKey);
 
@@ -53,10 +58,10 @@ public class OrderController {
         obj.put("amount", amount);
 
         OutputStream outputStream = connection.getOutputStream();
-        outputStream.write(obj.toString().getBytes("UTF-8"));
+        outputStream.write(obj.toString().getBytes(StandardCharsets.UTF_8));
 
         int code = connection.getResponseCode();
-        boolean isSuccess = code == 200 ? true : false;
+        boolean isSuccess = code == 200;
         model.addAttribute("isSuccess", isSuccess);
 
         InputStream responseStream = isSuccess ? connection.getInputStream() : connection.getErrorStream();
@@ -86,7 +91,13 @@ public class OrderController {
             model.addAttribute("message", (String) jsonObject.get("message"));
         }
 
-//        orderService.save();
+        // 주문 정보 저장 로직
+        Order order = new Order();
+        // 필요한 필드 설정
+        order.setOrderId(orderId);
+        order.setAmount(amount);
+        order.setPaymentKey(paymentKey);
+        orderService.save(order);
 
         return "order/success";
     }
@@ -104,10 +115,8 @@ public class OrderController {
         return "order/fail";
     }
 
-
     @GetMapping("/ordercheck")
     public String orderCheck() {
         return "order/ordercheck";
     }
-
 }
