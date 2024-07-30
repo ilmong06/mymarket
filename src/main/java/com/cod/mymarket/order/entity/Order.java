@@ -34,6 +34,7 @@ public class Order extends BaseEntity {
     private Integer amount;
     private String paymentKey;
     private String orderName;
+    private String productIds;
 
     // setter 추가
     public void setOrderId(String orderId) {
@@ -49,5 +50,8 @@ public class Order extends BaseEntity {
     }
     public void setOrderName(String orderName) {
         this.orderName = orderName;
+    }
+    public void setProductIds(String productIds) {
+        this.productIds = productIds;
     }
 }

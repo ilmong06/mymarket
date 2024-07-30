@@ -39,6 +39,7 @@
                     </td>
                     <td>
                         <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.title}" th:attr="data-title=${cartItem.product.title}"></a>
+                        <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.id}" th:attr="data-productid=${cartItem.product.id}" style="display: none;"></a>
                         <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="'[옵션:'+${cartItem.product.option}+']'" th:attr="data-title=${cartItem.product.option}"></a>
                     </td>
                     <td>
@@ -120,68 +121,71 @@
         });
 
         function calculateTotal() {
-        let totalProductPrice = 0;
-        let titles = [];
+    let totalProductPrice = 0;
+    let titles = [];
+    let productIds = [];
 
-        $('.form-1__checkbox-item:checked').each(function() {
-            let $row = $(this).closest('tr');
-            let title = $row.find('[data-title]').data('title');
-            let quantity = parseInt($row.find('.quantity-select').val(), 10);
-            let unitPrice = parseFloat($row.find('[data-price]').data('price'));
+    $('.form-1__checkbox-item:checked').each(function() {
+        let $row = $(this).closest('tr');
+        let title = $row.find('[data-title]').data('title');
+        let productId = $row.find('[data-productid]').data('productid');
+        let quantity = parseInt($row.find('.quantity-select').val(), 10);
+        let unitPrice = parseFloat($row.find('[data-price]').data('price'));
 
-            titles.push(title);
-            totalProductPrice += unitPrice * quantity;
-        });
-
-        let totalOrderPrice = totalProductPrice;
-
-        document.getElementById('total-price').textContent = totalProductPrice.toLocaleString() + ' 원';
-        document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
-        document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
-
-        return { titlesString: titles.join(", "), price: totalOrderPrice };
-    }
-
-    $('.btn-purchase').on('click', function(e) {
-        e.preventDefault();
-        let result = calculateTotal();
-        pay(result.titlesString, result.price);
+        titles.push(title);
+        productIds.push(productId);
+        totalProductPrice += unitPrice * quantity;
     });
 
-    let tossPayments = TossPayments("test_ck_oEjb0gm23PbewLWyQbRkrpGwBJn5");
+    let totalOrderPrice = totalProductPrice;
 
-    function pay(title, price) {
-        if (price === 0) {
-            alert('상품을 선택해주세요');
-            return;
-        }
+    document.getElementById('total-price').textContent = totalProductPrice.toLocaleString() + ' 원';
+    document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
+    document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
 
-        let orderId = new Date().getTime();
-        let successUrl = window.location.origin + "/order/success?orderId=sample-" + orderId + "&amount=" + price + "&orderName=" + encodeURIComponent(title);
-        let failUrl = window.location.origin + "/order/fail";
+    return { titlesString: titles.join(", "), price: totalOrderPrice, productIds: productIds };
+}
 
-        const requestJson = {
-            amount: price,
-            orderId: "sample-" + orderId,
-            orderName: title,
-            successUrl: successUrl,
-            failUrl: failUrl,
-            cardCompany: null,
-            cardInstallmentPlan: null,
-            maxCardInstallmentPlan: null,
-            useCardPoint: false,
-            customerName: "박토스",
-            customerEmail: null,
-            customerMobilePhone: null,
-            taxFreeAmount: null,
-            useInternationalCardOnly: false,
-            flowMode: "DEFAULT",
-            discountCode: null,
-            appScheme: null,
-        }
+$('.btn-purchase').on('click', function(e) {
+    e.preventDefault();
+    let result = calculateTotal();
+    pay(result.titlesString, result.price, result.productIds);
+});
 
-        tossPayments.requestPayment("카드", requestJson);
+let tossPayments = TossPayments("test_ck_oEjb0gm23PbewLWyQbRkrpGwBJn5");
+
+function pay(title, price, productIds) {
+    if (price === 0) {
+        alert('상품을 선택해주세요');
+        return;
     }
+
+    let orderId = new Date().getTime();
+    let successUrl = window.location.origin + "/order/success?orderId=sample-" + orderId + "&amount=" + price + "&orderName=" + encodeURIComponent(title) + "&productIds=" + encodeURIComponent(productIds.join(","));
+    let failUrl = window.location.origin + "/order/fail";
+
+    const requestJson = {
+        amount: price,
+        orderId: "sample-" + orderId,
+        orderName: title,
+        successUrl: successUrl,
+        failUrl: failUrl,
+        cardCompany: null,
+        cardInstallmentPlan: null,
+        maxCardInstallmentPlan: null,
+        useCardPoint: false,
+        customerName: "박토스",
+        customerEmail: null,
+        customerMobilePhone: null,
+        taxFreeAmount: null,
+        useInternationalCardOnly: false,
+        flowMode: "DEFAULT",
+        discountCode: null,
+        appScheme: null,
+    }
+
+    tossPayments.requestPayment("카드", requestJson);
+}
     </script>
 </section>
 </html>

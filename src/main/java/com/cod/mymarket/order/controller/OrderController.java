@@ -37,7 +37,7 @@ public class OrderController {
             @RequestParam(value = "orderId") String orderId,
             @RequestParam(value = "amount") Integer amount,
             @RequestParam(value = "paymentKey") String paymentKey,
-            @RequestParam(value = "orderName") String orderName) throws Exception {
+            @RequestParam(value = "orderName") String orderName, @RequestParam(value = "productIds") String productIds) throws Exception {
 
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encodedBytes = encoder.encode(paymentSecretKey.getBytes("UTF-8"));
@@ -78,6 +78,7 @@ public class OrderController {
 
         model.addAttribute("method", method);
         model.addAttribute("orderName", orderName);
+        model.addAttribute("productIds", productIds);
 
         if (method != null) {
             switch (method) {
@@ -104,7 +105,8 @@ public class OrderController {
         order.setOrderId(orderId);
         order.setAmount(amount);
         order.setPaymentKey(paymentKey);
-        order.setOrderName(orderName);  // Set orderName
+        order.setOrderName(orderName);
+        order.setProductIds(productIds);// Set orderName
         orderService.save(order);
 
         return "order/success";
