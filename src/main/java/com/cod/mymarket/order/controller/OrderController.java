@@ -27,6 +27,8 @@ import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
+
 @Controller
 @RequestMapping("/order")
 @RequiredArgsConstructor
@@ -123,14 +125,18 @@ public class OrderController {
 
         // OrderItem 리스트 생성
         List<OrderItem> orderItems = products.stream()
-                .map(product -> OrderItem.builder()
-                        .product(product)
-                        .payDate(LocalDateTime.now())
-                        .title(product.getTitle())
-                        .price(product.getPrice())
-                        .thumbnailImg(product.getThumbnailImg())
-                        .option(product.getOption()) // 상품 옵션이 있을 경우
-                        .build())
+                .map(product -> {
+                    OrderItem orderItem = OrderItem.builder()
+                            .product(product)
+                            .payDate(LocalDateTime.now())
+                            .title(product.getTitle())
+                            .price(product.getPrice())
+                            .thumbnailImg(product.getThumbnailImg())
+                            .option(product.getOption())
+                            .build();
+                    orderItem.setOrder(order); // 올바르게 Order 객체를 설정
+                    return orderItem;
+                })
                 .collect(Collectors.toList());
 
         // 모델에 OrderItem 추가
@@ -158,7 +164,9 @@ public class OrderController {
 
     @GetMapping("/ordercheck")
     public String orderCheck(
+            ) {
+
 
         return "order/ordercheck";
-
+    }
 }

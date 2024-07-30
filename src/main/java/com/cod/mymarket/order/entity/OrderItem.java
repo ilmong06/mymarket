@@ -29,10 +29,17 @@ public class OrderItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
+
+
+
     private String title;
     private int price;
     private String thumbnailImg;
 
     @ElementCollection
     private List<String> option; // 상품 옵션이 있을 경우
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
