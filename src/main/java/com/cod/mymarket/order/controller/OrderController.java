@@ -36,7 +36,8 @@ public class OrderController {
             Model model,
             @RequestParam(value = "orderId") String orderId,
             @RequestParam(value = "amount") Integer amount,
-            @RequestParam(value = "paymentKey") String paymentKey) throws Exception {
+            @RequestParam(value = "paymentKey") String paymentKey,
+            @RequestParam(value = "orderName") String orderName) throws Exception {
 
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] encodedBytes = encoder.encode(paymentSecretKey.getBytes("UTF-8"));
@@ -73,18 +74,25 @@ public class OrderController {
         model.addAttribute("responseStr", jsonObject.toJSONString());
         System.out.println(jsonObject.toJSONString());
 
-        model.addAttribute("method", (String) jsonObject.get("method"));
-        model.addAttribute("orderName", (String) jsonObject.get("orderName"));
+        String method = (String) jsonObject.get("method");
 
-        if (((String) jsonObject.get("method")) != null) {
-            if (((String) jsonObject.get("method")).equals("카드")) {
-                model.addAttribute("cardNumber", (String) ((JSONObject) jsonObject.get("card")).get("number"));
-            } else if (((String) jsonObject.get("method")).equals("가상계좌")) {
-                model.addAttribute("accountNumber", (String) ((JSONObject) jsonObject.get("virtualAccount")).get("accountNumber"));
-            } else if (((String) jsonObject.get("method")).equals("계좌이체")) {
-                model.addAttribute("bank", (String) ((JSONObject) jsonObject.get("transfer")).get("bank"));
-            } else if (((String) jsonObject.get("method")).equals("휴대폰")) {
-                model.addAttribute("customerMobilePhone", (String) ((JSONObject) jsonObject.get("mobilePhone")).get("customerMobilePhone"));
+        model.addAttribute("method", method);
+        model.addAttribute("orderName", orderName);
+
+        if (method != null) {
+            switch (method) {
+                case "카드":
+                    model.addAttribute("cardNumber", (String) ((JSONObject) jsonObject.get("card")).get("number"));
+                    break;
+                case "가상계좌":
+                    model.addAttribute("accountNumber", (String) ((JSONObject) jsonObject.get("virtualAccount")).get("accountNumber"));
+                    break;
+                case "계좌이체":
+                    model.addAttribute("bank", (String) ((JSONObject) jsonObject.get("transfer")).get("bank"));
+                    break;
+                case "휴대폰":
+                    model.addAttribute("customerMobilePhone", (String) ((JSONObject) jsonObject.get("mobilePhone")).get("customerMobilePhone"));
+                    break;
             }
         } else {
             model.addAttribute("code", (String) jsonObject.get("code"));
@@ -93,10 +101,10 @@ public class OrderController {
 
         // 주문 정보 저장 로직
         Order order = new Order();
-        // 필요한 필드 설정
         order.setOrderId(orderId);
         order.setAmount(amount);
         order.setPaymentKey(paymentKey);
+        order.setOrderName(orderName);  // Set orderName
         orderService.save(order);
 
         return "order/success";

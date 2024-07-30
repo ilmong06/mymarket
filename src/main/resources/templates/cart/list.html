@@ -120,74 +120,68 @@
         });
 
         function calculateTotal() {
-            let totalProductPrice = 0;
-            let totalShippingPrice = 0;
-            let totalOrderPrice = 0;
-            let titles = [];
+        let totalProductPrice = 0;
+        let titles = [];
 
-            $('.form-1__checkbox-item:checked').each(function() {
-                let $row = $(this).closest('tr');
-                let dataTitle = $row.find('[data-title]').data('title');
-                let quantity = parseInt($row.find('.quantity-select').val(), 10);
-                let unitPrice = parseFloat($row.find('[data-price]').data('price'));
+        $('.form-1__checkbox-item:checked').each(function() {
+            let $row = $(this).closest('tr');
+            let title = $row.find('[data-title]').data('title');
+            let quantity = parseInt($row.find('.quantity-select').val(), 10);
+            let unitPrice = parseFloat($row.find('[data-price]').data('price'));
 
-                titles.push(dataTitle);
-                totalProductPrice += unitPrice * quantity;
-            });
-
-            totalOrderPrice = totalProductPrice + totalShippingPrice;
-
-            document.getElementById('total-price').textContent = totalProductPrice.toLocaleString() + ' 원';
-            document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
-            document.getElementById('total-shipping-price').textContent = totalShippingPrice.toLocaleString();
-            document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
-
-            return {titlesString: titles.join(", "), price: totalOrderPrice};
-        }
-
-        $('.btn-purchase').on('click', function(e) {
-            e.preventDefault();
-            let result = calculateTotal();
-            pay(result.titlesString, result.price);
+            titles.push(title);
+            totalProductPrice += unitPrice * quantity;
         });
 
-        let tossPayments = TossPayments("test_ck_oEjb0gm23PbewLWyQbRkrpGwBJn5");
+        let totalOrderPrice = totalProductPrice;
 
-        let path = "/order/";
-        let successUrl = window.location.origin + path + "success";
-        let failUrl = window.location.origin + path + "fail";
-        let callbackUrl = window.location.origin + path + "va_callback";
-        let orderId = new Date().getTime();
+        document.getElementById('total-price').textContent = totalProductPrice.toLocaleString() + ' 원';
+        document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
+        document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
 
-        function pay(title, price) {
-            if (price == 0) {
-                alert('상품을 선택해주세요');
-                return;
-            }
-            const method = "카드";
+        return { titlesString: titles.join(", "), price: totalOrderPrice };
+    }
 
-            const requestJson = {
-                amount: price,
-                orderId: "sample-" + orderId,
-                orderName: title,
-                successUrl: successUrl,
-                failUrl: failUrl,
-                cardCompany: null,
-                cardInstallmentPlan: null,
-                maxCardInstallmentPlan: null,
-                useCardPoint: false,
-                customerName: "박토스",
-                customerEmail: null,
-                customerMobilePhone: null,
-                taxFreeAmount: null,
-                useInternationalCardOnly: false,
-                flowMode: "DEFAULT",
-                discountCode: null,
-                appScheme: null,
-            }
+    $('.btn-purchase').on('click', function(e) {
+        e.preventDefault();
+        let result = calculateTotal();
+        pay(result.titlesString, result.price);
+    });
 
-            tossPayments.requestPayment(method, requestJson);
+    let tossPayments = TossPayments("test_ck_oEjb0gm23PbewLWyQbRkrpGwBJn5");
+
+    function pay(title, price) {
+        if (price === 0) {
+            alert('상품을 선택해주세요');
+            return;
         }
+
+        let orderId = new Date().getTime();
+        let successUrl = window.location.origin + "/order/success?orderId=sample-" + orderId + "&amount=" + price + "&orderName=" + encodeURIComponent(title);
+        let failUrl = window.location.origin + "/order/fail";
+
+        const requestJson = {
+            amount: price,
+            orderId: "sample-" + orderId,
+            orderName: title,
+            successUrl: successUrl,
+            failUrl: failUrl,
+            cardCompany: null,
+            cardInstallmentPlan: null,
+            maxCardInstallmentPlan: null,
+            useCardPoint: false,
+            customerName: "박토스",
+            customerEmail: null,
+            customerMobilePhone: null,
+            taxFreeAmount: null,
+            useInternationalCardOnly: false,
+            flowMode: "DEFAULT",
+            discountCode: null,
+            appScheme: null,
+        }
+
+        tossPayments.requestPayment("카드", requestJson);
+    }
     </script>
 </section>
 </html>
