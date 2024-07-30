@@ -157,4 +157,7 @@ public class ProductService {
     }
 
 
+    public List<Product> getProductsByIds(List<Long> productIds) {
+        return productRepository.findAllById(productIds);
+    }
 }

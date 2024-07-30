@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAll(Pageable pageable);
@@ -22,4 +24,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 
     Page<Product> findAllByProductType(ProductType productType, Pageable pageable);
+    List<Product> findAllByIdIn(List<Long> ids);
 }

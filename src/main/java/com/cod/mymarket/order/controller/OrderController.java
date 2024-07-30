@@ -1,7 +1,9 @@
 package com.cod.mymarket.order.controller;
 
 import com.cod.mymarket.order.entity.Order;
+import com.cod.mymarket.order.entity.OrderItem;
 import com.cod.mymarket.order.service.OrderService;
+import com.cod.mymarket.product.entity.Product;
 import com.cod.mymarket.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
@@ -20,7 +22,10 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
@@ -109,6 +114,31 @@ public class OrderController {
         order.setProductIds(productIds);// Set orderName
         orderService.save(order);
 
+        List<Long> productIdList = List.of(productIds.split(",")).stream()
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+
+        // 상품 정보 조회
+        List<Product> products = productService.getProductsByIds(productIdList);
+
+        // OrderItem 리스트 생성
+        List<OrderItem> orderItems = products.stream()
+                .map(product -> OrderItem.builder()
+                        .product(product)
+                        .payDate(LocalDateTime.now())
+                        .title(product.getTitle())
+                        .price(product.getPrice())
+                        .thumbnailImg(product.getThumbnailImg())
+                        .option(product.getOption()) // 상품 옵션이 있을 경우
+                        .build())
+                .collect(Collectors.toList());
+
+        // 모델에 OrderItem 추가
+        model.addAttribute("orderItems", orderItems);
+
+        // OrderItem을 저장하는 서비스 메소드 호출
+        orderService.saveAll(orderItems); // OrderItemService를 통해 저장
+
         return "order/success";
     }
 
@@ -125,8 +155,10 @@ public class OrderController {
         return "order/fail";
     }
 
+
     @GetMapping("/ordercheck")
-    public String orderCheck() {
+    public String orderCheck(
+
         return "order/ordercheck";
-    }
+
 }
