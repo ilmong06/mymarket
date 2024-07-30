@@ -1,5 +1,6 @@
 package com.cod.mymarket.order.controller;
 
+import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.order.entity.Order;
 import com.cod.mymarket.order.entity.OrderItem;
 import com.cod.mymarket.order.service.OrderService;
@@ -9,11 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -161,12 +162,20 @@ public class OrderController {
         return "order/fail";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/ordercheck/{id}")
+    public String orderCheck(@PathVariable("id") Long id, Principal principal, Model model) {
+        // 주문 정보 조회
+        Order order = orderService.getOrderById(id);
 
-    @GetMapping("/ordercheck")
-    public String orderCheck(
-            ) {
+        // 모델에 주문 정보 추가
+        model.addAttribute("order", order);
 
+        // 주문 아이템 정보 추가
+        List<OrderItem> orderItems = order.getOrderItems(); // Order의 getOrderItems() 메소드 사용
+        model.addAttribute("orderItems", orderItems);
 
-        return "order/ordercheck";
+        return "order/ordercheck"; // 실제 HTML 파일 경로
     }
+
 }

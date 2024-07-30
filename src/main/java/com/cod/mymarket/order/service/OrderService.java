@@ -20,4 +20,8 @@ public class OrderService {
     public void saveAll(List<OrderItem> orderItems) {
         orderItemRepository.saveAll(orderItems);
     }
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Order with ID " + id + " not found"));
+    }
 }

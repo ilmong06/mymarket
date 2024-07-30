@@ -54,4 +54,19 @@ public class Order extends BaseEntity {
     public void setProductIds(String productIds) {
         this.productIds = productIds;
     }
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems;
+
+    // Getters and Setters
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+
 }

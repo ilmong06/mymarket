@@ -39,7 +39,12 @@ public class OrderItem extends BaseEntity {
     @ElementCollection
     private List<String> option; // 상품 옵션이 있을 경우
 
+    public Order getOrder() {
+        return order;
+    }
+
     public void setOrder(Order order) {
         this.order = order;
     }
+
 }
