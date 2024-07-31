@@ -2,6 +2,7 @@ package com.cod.mymarket.member.service;
 
 import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.member.repository.MemberRepository;
+import com.cod.mymarket.order.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

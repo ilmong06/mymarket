@@ -4,6 +4,7 @@ import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.member.form.MemberForm;
 import com.cod.mymarket.member.form.MemberForm2;
 import com.cod.mymarket.member.service.MemberService;
+import com.cod.mymarket.order.entity.Order;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/member")
@@ -54,16 +57,22 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
-    @GetMapping("/mypage")
-    public String showmypage() {
+    @GetMapping("/mypage/{username}")
+    public String showMypage(@PathVariable("username") String username, Principal principal, Model model) {
+        // Fetch member information based on the username
+        Member member = memberService.findByUsername(username);
+
+
+        model.addAttribute("member", member);
+
         return "member/mypage";
     }
 
-    @PostMapping("/mypage")
-    public String mypage() {
+    @PostMapping("/mypage/{username}")
+    public String mypage( @PathVariable("username") String username) {
 
 
-        return "member/mypage";
+        return "redirect:/member/mypage/" + username;
     }
 
 }

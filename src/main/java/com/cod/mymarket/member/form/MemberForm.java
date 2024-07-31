@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class MemberForm {
-    @Size(min = 3, max = 25)
+    @Size(min = 1, max = 25)
     @NotBlank
     private String username;
     @NotBlank
