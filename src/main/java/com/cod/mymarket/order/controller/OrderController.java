@@ -143,6 +143,7 @@ public class OrderController {
         // 모델에 OrderItem 추가
         model.addAttribute("orderItems", orderItems);
 
+        model.addAttribute("order", order);
         // OrderItem을 저장하는 서비스 메소드 호출
         orderService.saveAll(orderItems); // OrderItemService를 통해 저장
 

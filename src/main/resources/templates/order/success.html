@@ -10,7 +10,9 @@
 <div layout:fragment="content" class="container mt-5">
     <div class="info">
         <h2>주문에 성공하였습니다. 주문상세내역으로 이동하기</h2>
-        <a href="/order/ordercheck/${orderId}" class="btn btn-primary">ORDER</a>
+        <form  th:action="@{|/order/ordercheck/${order.id}|}" >
+            <input type="submit" value="주문상세내역" class="btn btn-outline-dark">
+        </form>
     </div>
 </div>
 </body>
