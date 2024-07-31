@@ -41,18 +41,16 @@
     width: 100%;
     box-sizing: border-box;
 }
-
+.thumbnail img {
+    padding: 10px; /* 이미지 패딩 */
+}
 .ec-base-box.typeMember .information .thumbnail {
     display: table-cell;
     width: 120px;
     vertical-align: middle;
     text-align: center;
 }
-body {
-    font-family: 'Calibr', Verdana, Dotum, sans-serif;
-    color: #353535;
-    background: #fff;
-}
+
 
 #myshopMain {
     width: 100%;

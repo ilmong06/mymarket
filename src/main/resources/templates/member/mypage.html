@@ -17,11 +17,18 @@
     <div class="xans-element- xans-myshop xans-myshop-asyncbenefit">
         <div class="ec-base-box-m typeMember gMessage">
             <div class="information">
-                <p class="thumbnail">
-                    <img src="//img.echosting.cafe24.com/skin/base_ko_KR/member/img_member_default.gif" alt=""
-                         class="myshop_benefit_group_image_tag">
-                    <span>저희 쇼핑몰을 이용해 주셔서 감사합니다.</span>
-                </p>
+                <table class="thumbnail">
+                    <tr>
+                        <td>
+                            <img src="//img.echosting.cafe24.com/skin/base_ko_KR/member/img_member_default.gif" alt=""
+                                 class="myshop_benefit_group_image_tag">
+                        </td>
+                        <td>
+                            <span th:text="${member.nickname}"></span>
+                            <span>님 저희 쇼핑몰을 이용해 주셔서 감사합니다.</span>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="ec-base-box typeMember gMessage">
@@ -68,18 +75,6 @@
                 <div class="content">
                     <h3>Title 6</h3>
                     <p>Description for item 6.</p>
-                </div>
-            </li>
-            <li class="shopMain">
-                <div class="content">
-                    <h3>Title 7</h3>
-                    <p>Description for item 7.</p>
-                </div>
-            </li>
-            <li class="shopMain">
-                <div class="content">
-                    <h3>Title 8</h3>
-                    <p>Description for item 8.</p>
                 </div>
             </li>
         </ul>
