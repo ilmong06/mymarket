@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 
@@ -57,15 +58,24 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
+
+    @GetMapping("/mypage")
+    public RedirectView redirectToUserPage(Principal principal) {
+        String username = principal.getName(); // 현재 인증된 사용자의 이름
+
+        // 사용자 이름이 유효한 경우, 해당 사용자 페이지로 리다이렉트
+        if (username != null && !username.isEmpty()) {
+            return new RedirectView("/member/mypage/" + username);
+        } else {
+            return new RedirectView("/member/login"); // 사용자 이름이 없으면 로그인 페이지로 리디렉션
+        }
+    }
+
     @GetMapping("/mypage/{username}")
-    public String showMypage(@PathVariable("username") String username, Principal principal, Model model) {
-        // Fetch member information based on the username
+    public String showMypage(@PathVariable("username") String username, Model model) {
         Member member = memberService.findByUsername(username);
-
-
         model.addAttribute("member", member);
-
-        return "member/mypage";
+        return "member/mypage"; // Thymeleaf 템플릿 파일
     }
 
     @PostMapping("/mypage/{username}")
