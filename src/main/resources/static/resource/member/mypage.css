@@ -1,0 +1,54 @@
+.info {
+   margin-top: 120px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin-bottom: 20px; /* 폼과의 여백 설정 */
+}
+
+.info h2 {
+    color: #303030; /* 텍스트 색상 설정 */
+    font-size: 13px; /* 텍스트 크기 설정 */
+    /* 텍스트 굵기 설정 */
+}
+.ec-base-box-m{
+   padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #DBD9D9;
+    color: #404040;
+    margin-bottom: 20px;
+    width: 1190px;
+
+}
+.ec-base-box {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid #e8e8e8;
+    color: #404040;
+    width: 1190px;
+    height: 90px;
+}
+
+.xans-myshop-asyncbenefit {
+    margin: 0 0 20px;
+    color: #353535;
+}
+
+.ec-base-box.typeMember .information {
+    display: table;
+    table-layout: fixed;
+    padding: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ec-base-box.typeMember .information .thumbnail {
+    display: table-cell;
+    width: 120px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+
+

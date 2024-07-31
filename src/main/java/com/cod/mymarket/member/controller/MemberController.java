@@ -1,14 +1,18 @@
 package com.cod.mymarket.member.controller;
 
+import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.member.form.MemberForm;
 import com.cod.mymarket.member.form.MemberForm2;
 import com.cod.mymarket.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -50,6 +54,16 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
+    @GetMapping("/mypage")
+    public String showmypage() {
+        return "member/mypage";
+    }
 
+    @PostMapping("/mypage")
+    public String mypage() {
+
+
+        return "member/mypage";
+    }
 
 }
