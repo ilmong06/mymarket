@@ -1,91 +1,47 @@
- .info {
-            margin-top: 120px;
-            text-align: center; /* 텍스트를 중앙 정렬 */
-            margin-bottom: 20px; /* 폼과의 여백 설정 */
-        }
+.info {
+    margin-top: 120px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin-bottom: 20px; /* 폼과의 여백 설정 */
+}
 
-        .info h2 {
-            color: #303030; /* 텍스트 색상 설정 */
-            font-size: 13px; /* 텍스트 크기 설정 */
-        }
+.info h2 {
+    color: #303030; /* 텍스트 색상 설정 */
+    font-size: 13px; /* 텍스트 크기 설정 */
+}
 
-        .ec-base-box-m {
-            padding: 20px;
-            margin: 0 auto; /* 좌우 중앙 정렬 */
-            border: 2px solid #DBD9D9;
-            color: #404040;
-            margin-bottom: 20px;
-            width: 1190px; /* 고정 폭 */
-        }
+.ec-base-box-m {
+    padding: 20px;
+    margin: 0 auto; /* 좌우 중앙 정렬 */
+    border: 2px solid #DBD9D9;
+    color: #404040;
+    margin-bottom: 20px;
+    width: 1190px; /* 고정 폭 */
+}
 
-        .ec-base-box {
-            padding: 20px;
-            margin: 0 auto; /* 좌우 중앙 정렬 */
-            border: 5px solid #e8e8e8;
-            color: #404040;
-            width: 1190px; /* 고정 폭 */
-            height: 90px;
-        }
+.ec-base-box {
+    padding: 20px;
+    margin: 0 auto; /* 좌우 중앙 정렬 */
+    border: 5px solid #e8e8e8;
+    color: #404040;
+    width: 1190px; /* 고정 폭 */
+    height: 90px;
+}
 
-        .xans-myshop-asyncbenefit {
-            margin-bottom: 20px;
-            color: #353535;
-        }
+.xans-myshop-asyncbenefit {
+    margin-bottom: 20px;
+    color: #353535;
+}
 
-        .ec-base-box.typeMember .information {
-            display: table;
-            table-layout: fixed;
-            padding: 10px 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
+.ec-base-box.typeMember .information {
+    display: table;
+    table-layout: fixed;
+    padding: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-        .thumbnail img {
-            padding: 10px; /* 이미지 패딩 */
-        }
+.thumbnail img {
+    padding: 10px; /* 이미지 패딩 */
+}
 
-        .ec-base-box.typeMember .information .thumbnail {
-            display: table-cell;
-            width: 120px;
-            vertical-align: middle;
-            text-align: center;
-        }
 
-        #myshopMain {
-            width: 100%;
-            margin: 0 auto;
-            padding: 0 20px; /* 좌우 여백 */
-        }
-
-        #myshopMain ul {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3개의 열 */
-            gap: 20px; /* 항목 사이의 간격 */
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #myshopMain ul li {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        #myshopMain ul li h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-
-        #myshopMain ul li p {
-            font-size: 0.9em;
-            color: #666;
-        }
