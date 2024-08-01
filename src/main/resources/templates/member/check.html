@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보 확인</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container mt-4">
+    <h1>회원 정보 확인</h1>
+
+    <!-- 회원 정보 테이블 -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>항목</th>
+            <th>정보</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>아이디</td>
+            <td th:text="${member.username}"></td>
+        </tr>
+        <tr>
+            <td>닉네임</td>
+            <td th:text="${member.nickname}"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td th:text="${member.email}"></td>
+        </tr>
+        <tr>
+            <td>주소</td>
+            <td th:text="${member.address}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 쿠폰 목록 선택 -->
+    <div class="mb-4">
+        <h3>내 쿠폰 목록</h3>
+        <select class="form-select" aria-label="쿠폰 선택">
+            <option selected>쿠폰을 선택하세요</option>
+            <tr th:each="coupon : ${coupons}">
+                <option th:value="${coupon.id}" th:data-discount="${coupon.discount}" th:text="${coupon.code + ' (' + coupon.discount + '%)'}"></option>
+            </tr>
+        </select>
+    </div>
+
+    <a href="/member/mypage" class="btn btn-primary">내 페이지로 돌아가기</a>
+</div>
+</body>
+</html>

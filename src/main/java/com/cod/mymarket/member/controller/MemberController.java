@@ -1,5 +1,6 @@
 package com.cod.mymarket.member.controller;
 
+import com.cod.mymarket.coupon.entity.Coupon;
 import com.cod.mymarket.member.entity.Member;
 import com.cod.mymarket.member.form.MemberForm;
 import com.cod.mymarket.member.form.MemberForm2;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -84,5 +86,20 @@ public class MemberController {
 
         return "redirect:/member/mypage/" + username;
     }
+    @GetMapping("/check")
+    @PreAuthorize("isAuthenticated()")
+    public String checkMemberInfo(Principal principal, Model model) {
+        String username = principal.getName(); // 현재 인증된 사용자의 이름
+        Member member = memberService.findByUsername(username); // 사용자 정보를 조회
 
+        // 쿠폰 목록 조회 (Member 객체의 쿠폰 목록을 사용)
+        List<Coupon> coupons = member.getCoupons().stream().toList();
+
+        // 모델에 회원 정보와 쿠폰 목록 추가
+        model.addAttribute("member", member);
+        model.addAttribute("coupons", coupons);
+
+        // 회원 정보 확인 페이지를 반환
+        return "member/check";
+    }
 }
