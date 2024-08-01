@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -48,7 +49,12 @@ public class Product extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ProductType productType;
-
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+    @PrePersist
+    protected void onCreate() {
+        createdDate = LocalDateTime.now();
+    }
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<Question> questionList;
 

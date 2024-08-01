@@ -24,14 +24,14 @@
         </thead>
         <tbody>
         <tr th:each="orderItem : ${orderItems}">
-            <td th:text="${order.orderId}"></td> <!-- 주문 번호 (Order의 orderId) -->
+            <td th:text="${order.orderId}"></td>
             <td>
                 <img class="w-[100px] h-[100px] sm:w-[100px] sm:h-[100px] object-cover" th:src="@{|/gen/${orderItem.thumbnailImg}|}" alt="상품이미지"></a>
             </td>
-            <td th:text="${orderItem.title}"></td>    <!-- 제품명 -->
-            <td th:text="${orderItem.option.size()}"></td> <!-- 수량 (상품 옵션의 수량으로 대체) -->
-            <td th:text="${orderItem.price}"></td>    <!-- 가격 -->
-            <td th:text="${orderItem.payDate}"></td> <!-- 주문 날짜 -->
+            <td th:text="${orderItem.title}"></td>
+            <td th:text="${orderItem.option.size()}"></td>
+            <td th:text="${orderItem.price}"></td>
+            <td th:text="${orderItem.payDate}"></td>
         </tr>
         </tbody>
     </table>

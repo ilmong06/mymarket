@@ -160,4 +160,9 @@ public class ProductService {
     public List<Product> getProductsByIds(List<Long> productIds) {
         return productRepository.findAllById(productIds);
     }
+
+    public List<Product> getLatestProducts(int limit) {
+        return productRepository.findTopByOrderByCreatedDateDesc(limit);
+    }
+
 }

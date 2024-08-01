@@ -34,17 +34,17 @@
     <!-- 슬라이드 배너 -->
     <div class="slider-wrapper">
         <div class="slider">
-<!--            <div class="slides">-->
-<!--                 슬라이드 아이템들-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 1"></div>-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 2"></div>-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 3"></div>-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 4"></div>-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 5"></div>-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 6"></div>-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 7"></div>-->
-<!--                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 8"></div>-->
-<!--            </div>-->
+            <div class="slides">
+                 슬라이드 아이템들
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 1"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 2"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 3"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 4"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 5"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 6"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 7"></div>
+                <div class="slide"><img src="/images/slide/slider.png" alt="Slide 8"></div>
+            </div>
         </div>
         <!-- 페이지네이션 버튼들 -->
         <div class="swiper-pagination">
@@ -64,6 +64,27 @@
         <div class="thumbnail"><img src="/images/ex/exex.png" alt="Thumbnail 2"></div>
         <div class="thumbnail"><img src="/images/ex/exex.png" alt="Thumbnail 3"></div>
         <div class="thumbnail"><img src="/images/ex/exex.png" alt="Thumbnail 4"></div>
+    </div>
+    <!-- 최신 상품 영역 -->
+    <div class="latest-products" style="width: 80%; margin: 0 auto; padding: 1rem;">
+        <ul style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+            <li th:each="product : ${products}" style="list-style-type: none;">
+                <a th:href="@{|/product/detail/${product.id}|}">
+                    <img class="object-cover object-center" th:src="@{|/gen/${product.thumbnailImg}|}" style="height: 380px; width: 100%; object-fit: cover;" alt="이미지가 존재하지 않습니다.">
+                </a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" style="display: block; font-size: 1.25rem; margin-top: 0.5rem; margin-bottom: 0.25rem;"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${'KRW:'+#numbers.formatInteger(product.price, 3, 'COMMA')}" style="display: block; font-size: 1rem;"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" style="display: block; color: #888; font-size: 1rem;"></a>
+                <div class="color-images-container" style="margin-top: 0.5rem; display: flex; gap: 4px;">
+                    <a th:each="colorImage : ${product.colorImages}" th:href="@{|/product/detail/${product.id}|}">
+                        <img th:src="@{|/gen/${colorImage}|}" style="height: 11px; width: 11px;" alt="컬러아이콘">
+                    </a>
+                </div>
+                <a th:href="@{|/product/detail/${product.id}|}">
+                    <img th:src="@{|/gen/${product.detailicon}|}" style="margin-top: 0.5rem;" alt="디테일아이콘">
+                </a>
+            </li>
+        </ul>
     </div>
 </section>
 <!-- JavaScript 슬라이더 기능 -->

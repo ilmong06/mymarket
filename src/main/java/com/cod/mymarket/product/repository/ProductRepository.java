@@ -25,4 +25,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findAllByProductType(ProductType productType, Pageable pageable);
     List<Product> findAllByIdIn(List<Long> ids);
+
+    @Query("SELECT p FROM Product p ORDER BY p.createdDate DESC")
+    List<Product> findTopByOrderByCreatedDateDesc(@Param("limit") int limit);
+    @Query("SELECT p FROM Product p ORDER BY p.createdDate DESC")
+    List<Product> findLatestProducts(Pageable pageable);
 }
