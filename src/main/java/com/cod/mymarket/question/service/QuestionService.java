@@ -59,4 +59,8 @@ public class QuestionService {
     public List<Question> getQuestionsByProduct(Long productId) {
         return questionRepository.findByProductId(productId);
     }
+    public List<Question> getQuestionsByMember(Long memberId) {
+        return questionRepository.findByMemberId(memberId);
+    }
+
 }

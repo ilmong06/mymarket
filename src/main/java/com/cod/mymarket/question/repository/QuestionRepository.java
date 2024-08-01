@@ -11,4 +11,8 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-    List<Question> findByProductId(Long productId);}
+    List<Question> findByProductId(Long productId);
+
+    List<Question> findByMemberId(Long memberId);
+
+}

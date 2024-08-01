@@ -111,5 +111,11 @@ public class QuestionController {
 
         return String.format("question/qlist");
     }
-
+    @GetMapping("/myqlist")
+    public String myQuestionList(Principal principal, Model model) {
+        Member member = memberService.findByUsername(principal.getName());
+        // 모델에 member를 추가
+        model.addAttribute("member", member);
+        return "question/myqlist";
+    }
 }
