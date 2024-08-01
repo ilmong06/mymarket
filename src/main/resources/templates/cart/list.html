@@ -69,6 +69,15 @@
         <!-- 쿠폰 정보 출력 -->
         <div class="mt-4">
             <h3>나의 쿠폰</h3>
+            <div class="mb-3">
+                <label for="coupon-select" class="form-label">쿠폰 선택</label>
+                <select id="coupon-select" class="form-select">
+                    <option value="">쿠폰을 선택하세요</option>
+                    <tr th:each="coupon : ${coupons}">
+                        <option th:value="${coupon.id}" th:data-discount="${coupon.discount}" th:text="${coupon.code + ' (' + coupon.discount + '%)'}"></option>
+                    </tr>
+                </select>
+            </div>
             <table class="table">
                 <thead>
                 <tr>
@@ -122,7 +131,7 @@
 
     <script src="https://js.tosspayments.com/v1"></script>
     <script th:inline="javascript">
-        <!-- 체크박스 전체 클릭 -->
+        // 체크박스 전체 클릭
         $('.form-1__checkbox-all').change(function() {
             if (this.checked) {
                 $('.form-1__checkbox-item:not(:checked)').prop('checked', true);
@@ -142,72 +151,78 @@
             calculateTotal();
         });
 
+        $('#coupon-select').change(function() {
+            calculateTotal();
+        });
+
         function calculateTotal() {
-    let totalProductPrice = 0;
-    let titles = [];
-    let productIds = [];
+            let totalProductPrice = 0;
+            let titles = [];
+            let productIds = [];
 
-    $('.form-1__checkbox-item:checked').each(function() {
-        let $row = $(this).closest('tr');
-        let title = $row.find('[data-title]').data('title');
-        let productId = $row.find('[data-productid]').data('productid');
-        let quantity = parseInt($row.find('.quantity-select').val(), 10);
-        let unitPrice = parseFloat($row.find('[data-price]').data('price'));
+            $('.form-1__checkbox-item:checked').each(function() {
+                let $row = $(this).closest('tr');
+                let title = $row.find('[data-title]').data('title');
+                let productId = $row.find('[data-productid]').data('productid');
+                let quantity = parseInt($row.find('.quantity-select').val(), 10);
+                let unitPrice = parseFloat($row.find('[data-price]').data('price'));
 
-        titles.push(title);
-        productIds.push(productId);
-        totalProductPrice += unitPrice * quantity;
-    });
+                titles.push(title);
+                productIds.push(productId);
+                totalProductPrice += unitPrice * quantity;
+            });
 
-    let totalOrderPrice = totalProductPrice;
+            let selectedCouponDiscount = $('#coupon-select').find(':selected').data('discount') || 0;
+            let discountAmount = (totalProductPrice * selectedCouponDiscount) / 100;
+            let totalOrderPrice = totalProductPrice - discountAmount;
 
-    document.getElementById('total-price').textContent = totalProductPrice.toLocaleString() + ' 원';
-    document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
-    document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
+            document.getElementById('total-price').textContent = totalOrderPrice.toLocaleString() + ' 원';
+            document.getElementById('total-product-price').textContent = totalProductPrice.toLocaleString();
+            document.getElementById('total-order-price').textContent = totalOrderPrice.toLocaleString();
 
-    return { titlesString: titles.join(", "), price: totalOrderPrice, productIds: productIds };
-}
+            return { titlesString: titles.join(", "), price: totalOrderPrice, productIds: productIds };
+        }
 
-$('.btn-purchase').on('click', function(e) {
-    e.preventDefault();
-    let result = calculateTotal();
-    pay(result.titlesString, result.price, result.productIds);
-});
+        $('.btn-purchase').on('click', function(e) {
+            e.preventDefault();
+            let result = calculateTotal();
+            pay(result.titlesString, result.price, result.productIds);
+        });
 
-let tossPayments = TossPayments("test_ck_oEjb0gm23PbewLWyQbRkrpGwBJn5");
+        let tossPayments = TossPayments("test_ck_oEjb0gm23PbewLWyQbRkrpGwBJn5");
 
-function pay(title, price, productIds) {
-    if (price === 0) {
-        alert('상품을 선택해주세요');
-        return;
-    }
+        function pay(title, price, productIds) {
+            if (price === 0) {
+                alert('상품을 선택해주세요');
+                return;
+            }
 
-    let orderId = new Date().getTime();
-    let successUrl = window.location.origin + "/order/success?orderId=sample-" + orderId + "&amount=" + price + "&orderName=" + encodeURIComponent(title) + "&productIds=" + encodeURIComponent(productIds.join(","));
-    let failUrl = window.location.origin + "/order/fail";
+            let orderId = new Date().getTime();
+            let successUrl = window.location.origin + "/order/success?orderId=sample-" + orderId + "&amount=" + price + "&orderName=" + encodeURIComponent(title) + "&productIds=" + encodeURIComponent(productIds.join(","));
+            let failUrl = window.location.origin + "/order/fail";
 
-    const requestJson = {
-        amount: price,
-        orderId: "sample-" + orderId,
-        orderName: title,
-        successUrl: successUrl,
-        failUrl: failUrl,
-        cardCompany: null,
-        cardInstallmentPlan: null,
-        maxCardInstallmentPlan: null,
-        useCardPoint: false,
-        customerName: "박토스",
-        customerEmail: null,
-        customerMobilePhone: null,
-        taxFreeAmount: null,
-        useInternationalCardOnly: false,
-        flowMode: "DEFAULT",
-        discountCode: null,
-        appScheme: null,
-    }
+            const requestJson = {
+                amount: price,
+                orderId: "sample-" + orderId,
+                orderName: title,
+                successUrl: successUrl,
+                failUrl: failUrl,
+                cardCompany: null,
+                cardInstallmentPlan: null,
+                maxCardInstallmentPlan: null,
+                useCardPoint: false,
+                customerName: "박토스",
+                customerEmail: null,
+                customerMobilePhone: null,
+                taxFreeAmount: null,
+                useInternationalCardOnly: false,
+                flowMode: "DEFAULT",
+                discountCode: null,
+                appScheme: null,
+            }
 
-    tossPayments.requestPayment("카드", requestJson);
-}
+            tossPayments.requestPayment("카드", requestJson);
+        }
     </script>
 </section>
 </html>
