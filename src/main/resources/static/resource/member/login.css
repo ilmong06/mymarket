@@ -9,3 +9,8 @@
     font-size: 13px; /* 텍스트 크기 설정 */
     /* 텍스트 굵기 설정 */
 }
+.social-login-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* 버튼 간 간격 조정 */
+}
