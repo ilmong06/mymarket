@@ -58,7 +58,7 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
-
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/mypage")
     public RedirectView redirectToUserPage(Principal principal) {
         String username = principal.getName(); // 현재 인증된 사용자의 이름
@@ -70,14 +70,14 @@ public class MemberController {
             return new RedirectView("/member/login"); // 사용자 이름이 없으면 로그인 페이지로 리디렉션
         }
     }
-
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/mypage/{username}")
     public String showMypage(@PathVariable("username") String username, Model model) {
         Member member = memberService.findByUsername(username);
         model.addAttribute("member", member);
         return "member/mypage"; // Thymeleaf 템플릿 파일
     }
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/mypage/{username}")
     public String mypage( @PathVariable("username") String username) {
 

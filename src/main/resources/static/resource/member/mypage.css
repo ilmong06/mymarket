@@ -43,5 +43,9 @@
 .thumbnail img {
     padding: 10px; /* 이미지 패딩 */
 }
-
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
 
