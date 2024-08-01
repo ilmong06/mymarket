@@ -56,7 +56,7 @@ public class MemberController {
         String currentUsername = authentication.getName();
 
         // Update the address for the authenticated user
-        memberService.updateAddress(currentUsername, memberForm2.getAddress());
+        memberService.updateAddress(currentUsername, memberForm2.getAddress(),memberForm2.getNickname(),memberForm2.getEmail());
 
         return "redirect:/member/login";
     }

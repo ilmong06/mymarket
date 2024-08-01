@@ -63,11 +63,13 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateAddress(String username, String address) {
+    public void updateAddress(String username, String address,String nickname, String email) {
         Optional<Member> memberOptional = memberRepository.findByUsername(username);
         if (memberOptional.isPresent()) {
             Member member = memberOptional.get();
             member.setAddress(address);
+            member.setEmail(email);
+            member.setNickname(nickname);
             memberRepository.save(member);
         } else {
             throw new UsernameNotFoundException("User not found");

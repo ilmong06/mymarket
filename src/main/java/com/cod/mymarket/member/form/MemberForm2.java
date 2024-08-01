@@ -10,4 +10,8 @@ public class MemberForm2 {
 
     @NotBlank
     private String address;
+    @NotBlank
+    private String nickname;
+    @NotBlank
+    private String email;
 }
