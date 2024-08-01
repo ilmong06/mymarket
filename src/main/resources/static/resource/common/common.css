@@ -22,8 +22,8 @@
 }
 
 /* 기본 폰트 패밀리 설정 */
-body {
-    font-family: sans-serif; /* 기본 폰트는 sans-serif로 설정 */
+body{
+    font-family: 'Calibri', 'sans-serif';
 }
 
 /* 맑은 고딕 폰트를 적용할 클래스 */
