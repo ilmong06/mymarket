@@ -1,3 +1,6 @@
+body{
+    font-family: 'Calibri', 'sans-serif';
+}
 .info {
    margin-top: 240px;
     text-align: center; /* 텍스트를 중앙 정렬 */
