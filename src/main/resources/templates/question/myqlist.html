@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html layout:decorate="~{layout/layout.html}">
 <head>
-    <meta charset="UTF-8">
-    <title>나의 질문 내역</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="/resource/question/qlist.css">
 </head>
 <body>
+<div layout:fragment="content" class="container mt-5">
+    <div class="info">
+        <h2>질문 목록</h2>
+    </div>
 <div class="container mt-4">
     <h1>나의 질문 내역</h1>
 
@@ -19,16 +23,17 @@
     <table class="table" th:unless="${#lists.isEmpty(member.questionList)}">
         <thead>
         <tr>
+            <th>번호</th>
             <th>제목</th>
             <th>내용</th>
             <th>작성일</th>
-            <th>수정</th>
-            <th>삭제</th>
+            <th>수정/삭제</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="question : ${member.questionList}">
             <td th:text="${question.id}"></td>
+            <td th:text="${question.title}"></td>
             <td th:text="${question.content}"></td>
             <td th:text="${question.createdDate}"></td>
             <td>
@@ -71,5 +76,6 @@
            document.body.appendChild(form);
            form.submit();
 </script>
+</div>
 </body>
 </html>
