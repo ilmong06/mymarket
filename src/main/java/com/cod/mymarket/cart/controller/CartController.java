@@ -33,7 +33,7 @@ public class CartController {
         List<CartItem> cartList = cartService.getList(member);
 
         model.addAttribute("cartList", cartList);
-
+        model.addAttribute("coupons", member.getCoupons());
         return "cart/list";
     }
 
