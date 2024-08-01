@@ -74,12 +74,16 @@
                 <tr>
                     <th>쿠폰 ID</th>
                     <th>쿠폰 이름</th>
+                    <th>할인율</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="coupon : ${coupons}">
                     <td th:text="${coupon.id}"></td>
                     <td th:text="${coupon.code}"></td>
+                    <td>
+                        <span class="discount-rate" th:text="${coupon.discount} + '%'"></span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
