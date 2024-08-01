@@ -89,17 +89,14 @@ public class MemberController {
     @GetMapping("/check")
     @PreAuthorize("isAuthenticated()")
     public String checkMemberInfo(Principal principal, Model model) {
-        String username = principal.getName(); // 현재 인증된 사용자의 이름
-        Member member = memberService.findByUsername(username); // 사용자 정보를 조회
+        String username = principal.getName();
+        Member member = memberService.findByUsername(username);
 
-        // 쿠폰 목록 조회 (Member 객체의 쿠폰 목록을 사용)
         List<Coupon> coupons = member.getCoupons().stream().toList();
 
-        // 모델에 회원 정보와 쿠폰 목록 추가
         model.addAttribute("member", member);
         model.addAttribute("coupons", coupons);
 
-        // 회원 정보 확인 페이지를 반환
         return "member/check";
     }
 }
