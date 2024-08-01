@@ -40,7 +40,7 @@ public class MemberController {
 
     @PostMapping("/join")
     public String join(@Valid MemberForm memberForm) {
-        memberService.join(memberForm.getUsername(), memberForm.getPassword(), memberForm.getEmail(), memberForm.getNickname(), memberForm.getAddress(), memberForm.getAddress());
+        memberService.join(memberForm.getUsername(), memberForm.getPassword(), memberForm.getEmail(), memberForm.getNickname(), memberForm.getAddress(), memberForm.getCoupons());
 
         return "redirect:/member/login";
     }

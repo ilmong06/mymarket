@@ -25,8 +25,10 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CouponService couponService;
     private final CouponRepository couponRepository;
+    private static final Long WELCOME_COUPON_ID = 1L; // WELCOME10 쿠폰의 ID
+
     @Transactional
-    public Member join(String username, String password, String email, String nickname, String address,String couponCode) {
+    public Member join(String username, String password, String email, String nickname, String address, String couponCode) {
         Member member = Member.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
@@ -34,18 +36,26 @@ public class MemberService {
                 .nickname(nickname)
                 .address(address)
                 .build();
-        // 쿠폰 코드가 제공된 경우, 쿠폰을 추가
-        if (couponCode != null) {
+        member = memberRepository.save(member);
+
+        // 기본 쿠폰을 추가합니다.
+        addCouponToMember(username, WELCOME_COUPON_ID);
+
+
+        // 쿠폰 코드가 있을 경우만 처리합니다.
+        if (couponCode != null && !couponCode.isEmpty() && !couponCode.equals("WELCOME10")) {
             Coupon coupon = couponRepository.findByCode(couponCode)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid coupon code: " + couponCode));
             if (member.getCoupons() == null) {
                 member.setCoupons(new HashSet<>()); // 쿠폰 필드가 null인 경우 초기화
             }
             member.getCoupons().add(coupon);
+            memberRepository.save(member);
         }
-        memberRepository.save(member);
+
         return member;
     }
+
 
     @Transactional
     public void addCouponToMember(String username, Long couponId) {
@@ -55,6 +65,9 @@ public class MemberService {
         if (memberOptional.isPresent() && couponOptional.isPresent()) {
             Member member = memberOptional.get();
             Coupon coupon = couponOptional.get();
+            if (member.getCoupons() == null) {
+                member.setCoupons(new HashSet<>()); // 쿠폰 필드가 null인 경우 초기화
+            }
             member.getCoupons().add(coupon);
             memberRepository.save(member);
         } else {

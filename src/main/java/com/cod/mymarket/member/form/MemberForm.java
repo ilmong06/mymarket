@@ -19,4 +19,5 @@ public class MemberForm {
     private String email;
     @NotBlank
     private String address;
+    private String coupons;
 }
