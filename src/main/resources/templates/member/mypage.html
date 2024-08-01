@@ -36,18 +36,56 @@
 
             </div>
         </div>
-    </div>
+        <!-- 주문 처리 현황을 포함한 새로운 박스 -->
+        <div class="ec-base-box2 typeMember gMessage">
+            <div class="xans-myshop-orderstate">
+                <div class="title">
+                    <h3>나의 주문처리 현황 <span class="desc">(최근 <em>3개월</em> 기준)</span></h3>
+                </div>
+                <div class="state">
+                    <ul class="order">
+                        <li>
+                            <strong>입금전</strong>
+                            <a href="/myshop/order/list.html?order_status=shipped_before" class="count">
+                                <span id="xans_myshop_orderstate_shppied_before_count">0</span>
+                            </a>
+                        </li>
+                        <li>
+                            <strong>배송준비중</strong>
+                            <a href="/myshop/order/list.html?order_status=shipped_standby" class="count">
+                                <span id="xans_myshop_orderstate_shppied_standby_count">0</span>
+                            </a>
+                        </li>
+                        <li>
+                            <strong>배송중</strong>
+                            <a href="/myshop/order/list.html?order_status=shipped_begin" class="count">
+                                <span id="xans_myshop_orderstate_shppied_begin_count">0</span>
+                            </a>
+                        </li>
+                        <li>
+                            <strong>배송완료</strong>
+                            <a href="/myshop/order/list.html?order_status=shipped_complate" class="count">
+                                <span id="xans_myshop_orderstate_shppied_complate_count">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     <!-- 새로운 섹션 추가 -->
     <div class="mt-2.5">
         <!-- 상단 3개 직사각형 -->
         <div class="d-flex justify-content-center mb-2.5">
-            <div class="border border-gray-300 d-flex flex-column align-items-center justify-content-center text-center p-4" style="width: 238px; height: 265px; margin: 10px;">
-                <img src="https://img.icons8.com/?size=100&id=42424&format=png&color=000000" alt="Icon" style="width: 60px; height: 60px; margin-bottom: 10px;">
-                <div>
-                    <h3 class="text-lg font-semibold">Order</h3>
-                    <p style="font-size: 13px;">주문 내역 조회</p> <!-- 글씨 크기 줄이기 -->
+            <a href="/order/ordercheck" style="text-decoration: none; color: inherit;">
+                <div class="border border-gray-300 d-flex flex-column align-items-center justify-content-center text-center p-4" style="width: 238px; height: 265px; margin: 10px;">
+                    <img src="https://img.icons8.com/?size=100&id=42424&format=png&color=000000" alt="Icon" style="width: 60px; height: 60px; margin-bottom: 10px;">
+                    <div>
+                        <h3 class="text-lg font-semibold">Order</h3>
+                        <p style="font-size: 13px;">주문 내역 조회</p>
+                    </div>
                 </div>
-            </div>
+            </a>
+            <a href="/member/modify" style="text-decoration: none; color: inherit;">
             <div class="border border-gray-300 d-flex flex-column align-items-center justify-content-center text-center p-4" style="width: 238px; height: 265px; margin: 10px;">
                 <img src="https://img.icons8.com/?size=100&id=49574&format=png&color=000000" alt="Icon" style="width: 60px; height: 60px; margin-bottom: 10px;">
                 <div>
@@ -55,6 +93,8 @@
                     <p style="font-size: 13px;">회원 정보</p> <!-- 글씨 크기 줄이기 -->
                 </div>
             </div>
+            </a>
+            <a href="/member/coupon" style="text-decoration: none; color: inherit;">
             <div class="border border-gray-300 d-flex flex-column align-items-center justify-content-center text-center p-4" style="width: 238px; height: 265px; margin: 10px;">
                 <img src="https://img.icons8.com/?size=100&id=44276&format=png&color=000000" alt="Icon" style="width: 60px; height: 60px; margin-bottom: 10px;">
                 <div>
@@ -62,6 +102,8 @@
                     <p style="font-size: 13px;">쿠폰</p> <!-- 글씨 크기 줄이기 -->
                 </div>
             </div>
+            </a>
+            <a href="/question/myqlist" style="text-decoration: none; color: inherit;">
             <div class="border border-gray-300 d-flex flex-column align-items-center justify-content-center text-center p-4" style="width: 238px; height: 265px; margin: 10px;">
                 <img src="https://img.icons8.com/?size=100&id=jdtMltLdHjiq&format=png&color=000000" alt="Icon" style="width: 60px; height: 60px; margin-bottom: 10px;">
                 <div>
@@ -69,6 +111,7 @@
                     <p style="font-size: 13px;">게시물 관리</p> <!-- 글씨 크기 줄이기 -->
                 </div>
             </div>
+            </a>
         </div>
 <!--        &lt;!&ndash; 하단 3개 직사각형 &ndash;&gt;-->
 <!--        <div class="d-flex justify-content-center">-->
