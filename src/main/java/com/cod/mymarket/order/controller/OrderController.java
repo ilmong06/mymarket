@@ -163,6 +163,7 @@ public class OrderController {
         return "order/fail";
     }
 
+    // 기존 메서드
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/ordercheck/{id}")
     public String orderCheck(@PathVariable("id") Long id, Principal principal, Model model) {
@@ -177,6 +178,17 @@ public class OrderController {
         model.addAttribute("orderItems", orderItems);
 
         return "order/ordercheck"; // 실제 HTML 파일 경로
+    }
+
+    // 리다이렉트 메서드 추가
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/ordercheck")
+    public String redirectToOrderCheck(Principal principal, Model model) {
+        // 기본적으로 첫 번째 주문 ID를 가져온다고 가정 (예: 1번 주문)
+        Long defaultOrderId = 1L; // 이 값을 적절한 주문 ID로 설정해야 합니다.
+
+        // 리다이렉트
+        return "redirect:/order/ordercheck/" + defaultOrderId;
     }
 
 }
