@@ -2,15 +2,20 @@ package com.cod.mymarket.coupon.controller;
 
 import com.cod.mymarket.coupon.entity.Coupon;
 import com.cod.mymarket.coupon.service.CouponService;
+import com.cod.mymarket.member.entity.Member;
+import com.cod.mymarket.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -18,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CouponController {
     private final CouponService couponService;
+    private final MemberService memberService;
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
@@ -61,5 +67,19 @@ public class CouponController {
     public String deleteCoupon(@PathVariable Long id) {
         couponService.deleteCoupon(id);
         return "redirect:/coupon/list";
+    }
+
+    @GetMapping("/couponlist")
+    @PreAuthorize("isAuthenticated()")
+    public String showcouponlist(Principal principal, Model model) {
+        String username = principal.getName();
+        Member member = memberService.findByUsername(username);
+
+        List<Coupon> coupons = member.getCoupons().stream().toList();
+
+        model.addAttribute("member", member);
+        model.addAttribute("coupons", coupons);
+
+        return "coupon/couponlist";
     }
 }
