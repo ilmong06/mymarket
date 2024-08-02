@@ -30,4 +30,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findTopByOrderByCreatedDateDesc(@Param("limit") int limit);
     @Query("SELECT p FROM Product p ORDER BY p.createdDate DESC")
     List<Product> findLatestProducts(Pageable pageable);
+    @Query("SELECT p FROM Product p ORDER BY p.hitCount DESC")
+    Page<Product> findAllByHitCountDesc(Pageable pageable);
 }

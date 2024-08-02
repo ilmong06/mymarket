@@ -164,5 +164,7 @@ public class ProductService {
     public List<Product> getLatestProducts(int limit) {
         return productRepository.findTopByOrderByCreatedDateDesc(limit);
     }
-
+    public Page<Product> getProductsSortedByHitCount(Pageable pageable) {
+        return productRepository.findAllByHitCountDesc(pageable);
+    }
 }

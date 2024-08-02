@@ -7,6 +7,9 @@ import com.cod.mymarket.question.entity.Question;
 import com.cod.mymarket.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -135,5 +138,24 @@ public class ProductController {
         List<Product> latestProducts = productService.getLatestProducts(30);
         model.addAttribute("products", latestProducts);
         return "product/new";
+    }
+    @GetMapping("/best")
+    public String bestList(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        // Pageable 객체를 생성하여 페이지네이션을 설정합니다.
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "hitCount"));
+
+        // 서비스에서 페이지네이션된 데이터를 조회합니다.
+        Page<Product> paging = productService.getProductsSortedByHitCount(pageable);
+
+        // 모델에 데이터를 추가합니다.
+        model.addAttribute("paging", paging);
+        model.addAttribute("type", "BEST");
+
+        // HTML 템플릿의 경로를 반환합니다.
+        return "product/best";
     }
 }
