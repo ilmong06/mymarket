@@ -130,4 +130,10 @@ public class ProductController {
 
         return "product/detail";
     }
+    @GetMapping("/new")
+    public String shownew(Model model) {
+        List<Product> latestProducts = productService.getLatestProducts(30);
+        model.addAttribute("products", latestProducts);
+        return "product/new";
+    }
 }

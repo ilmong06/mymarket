@@ -43,7 +43,10 @@
                         <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="'[옵션:'+${cartItem.product.option}+']'" th:attr="data-title=${cartItem.product.option}"></a>
                     </td>
                     <td>
-                        <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.point}+'원'" th:attr="data-title=${cartItem.product.point}"></a>
+                        <span style="display: inline-block; vertical-align: middle; margin-right: 5px;">
+                            <img src="https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_pay_card.gif" alt="적립금 아이콘" style="width: 16px; height: 16px;">
+                        </span>
+                        <a th:href="@{|/product/detail/${cartItem.product.id}|}" th:text="${cartItem.product.point} + '원'" th:attr="data-title=${cartItem.product.point}" style="display: inline-block; vertical-align: middle;"></a>
                     </td>
                     <td>
                         <select class="form-select quantity-select" th:attr="data-price=${cartItem.product.price}">
