@@ -68,7 +68,7 @@
                 </a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" style="display: block;  margin-top: 0.5rem; margin-bottom: 0.25rem;"></a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${'KRW:'+#numbers.formatInteger(product.price, 3, 'COMMA')}" style="display: block; "></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" style="display: block; color: #888;"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" style="display: block; color: #888; font-size: 14px;"></a>
                 <div class="color-images-container" style="margin-top: 0.5rem; display: flex; gap: 4px;">
                     <a th:each="colorImage : ${product.colorImages}" th:href="@{|/product/detail/${product.id}|}">
                         <img th:src="@{|/gen/${colorImage}|}" style="height: 11px; width: 11px;" alt="컬러아이콘">

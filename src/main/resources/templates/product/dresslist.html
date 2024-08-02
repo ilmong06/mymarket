@@ -19,7 +19,7 @@
                 </a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" style="font-size: 16px;" class="block md:!text-left text-lg mb-1 mt-2"></a>
                 <a th:href="@{|/product/detail/${product.id}|}" th:text="${'KRW:'+#numbers.formatInteger(product.price, 3, 'COMMA')}" class=" block md:!text-left text-base"></a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" class="block text-light-gray text-base"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" style="font-size: 14px;"  class="block text-light-gray text-base"></a>
                 <!-- 색상 아이콘을 Flexbox로 가로 정렬 -->
                 <div class="color-images-container">
                     <a th:each="colorImage : ${product.colorImages}" th:href="@{|/product/detail/${product.id}|}">
