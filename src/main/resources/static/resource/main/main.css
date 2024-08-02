@@ -66,3 +66,19 @@ body{
     height: 100%;
     object-fit: cover;
 }
+.new-item {
+    width: 80%;
+    margin: 40px auto;
+    padding: 10px 0;
+    font-size: 24px;
+    color: #333333;
+    border-left: 4px solid black;
+    display: flex;
+    align-items: center;
+    font-family: 'Calibri','sans-serif';
+    padding-left: 10px;
+ }
+
+.new-item::before {
+    display: block;
+}
