@@ -12,3 +12,6 @@ body{
     font-size: 13px;
 
 }
+.table thead th {
+    border-bottom: 2px solid #000;
+}
