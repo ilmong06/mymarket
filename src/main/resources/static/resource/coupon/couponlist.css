@@ -1,0 +1,23 @@
+body{
+    font-family: 'Calibri', 'sans-serif';
+}
+.info {
+   margin-top: 220px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    margin-bottom: 20px; /* 폼과의 여백 설정 */
+}
+
+.info h2 {
+    color: #303030; /* 텍스트 색상 설정 */
+    font-size: 13px; /* 텍스트 크기 설정 */
+    /* 텍스트 굵기 설정 */
+}
+.table-container {
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    margin-top: 20px; /* 상단 여백 추가 */
+}
+table {
+    width: 80%; /* 테이블의 너비를 설정하여 중앙 정렬 */
+    max-width: 100%; /* 최대 너비 설정 */
+}
