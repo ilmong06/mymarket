@@ -47,14 +47,15 @@
                 >
                     삭제
                 </a>
-                <h2>질문 수정</h2>
                 <form sec:authorize="isAuthenticated()" th:action="@{|/question/modify/${question.id}|}" method="POST">
                     <div class="mb-3">
                         <label for="content" class="form-label">내용</label>
                         <textarea name="content" id="content" class="form-control" rows="5" required th:text="${question.content}"></textarea>
                     </div>
                     <input type="hidden" name="id" value="${question.id}">
-                    <button type="submit" class="btn btn-primary">수정하기</button>
+                    <button type="submit" class="btn" style="background-color: #333333; color: #ffffff; border: 1px solid #333333;">
+                        수정하기
+                    </button>
                 </form>
             </td>
         </tr>

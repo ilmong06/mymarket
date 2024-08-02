@@ -54,7 +54,7 @@
                 <form th:action="@{|/question/view/${question.id}|}"  method="POST">
                     <div class="input-group">
                         <input type="password" name="password" class="form-control" placeholder="비밀번호 입력" required>
-                        <button type="submit" class="btn btn-primary">보기</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #333333; color: #ffffff; border: 1px solid #333333;">보기</button>
                     </div>
                 </form>
                 <div th:if="${question.id == viewedQuestion?.id}">
@@ -68,14 +68,15 @@
                     >
                         삭제
                     </a>
-                    <h2>질문 수정</h2>
                     <form sec:authorize="isAuthenticated()" th:action="@{|/question/modify/${question.id}|}" method="POST">
                         <div class="mb-3">
                             <label for="content" class="form-label">내용</label>
                             <textarea name="content" id="content" class="form-control" rows="5" required th:text="${question.content}"></textarea>
                         </div>
                         <input type="hidden" name="id" value="${question.id}">
-                        <button type="submit" class="btn btn-primary">수정하기</button>
+                        <button type="submit" class="btn" style="background-color: #ffffff; color: #333333; border: 1px solid #333333;">
+                            수정하기
+                        </button>
                     </form>
                 </div>
             </td>
