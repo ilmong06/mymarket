@@ -90,3 +90,10 @@ body{
    flex-wrap: wrap; /* 필요한 경우 줄 바꿈 */
    gap: 2px; /* 이미지 간의 간격 조정 */
  }
+.slider-wrapper {
+    margin-bottom: 10px;
+}
+
+.thumbnails {
+    margin-bottom: 10px;
+}
