@@ -39,8 +39,23 @@
                         <span th:text="${product.description}"></span>
                     </li>
                     <li class="list-group-item">
-                        <span>가격 : </span>
-                        <span th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}"></span>
+                        <div class="price-container">
+                            <!-- 원가 표시 -->
+                            <span class="original-price" th:if="${product.discountedPrice != null}">
+                            <span>가격 : </span>
+                            <span th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}"></span>
+                        </span>
+                              <!-- 할인가 표시 -->
+                            <span class="discounted-price" th:if="${product.discountedPrice != null}">
+                            <span>할인가 : </span>
+                            <span th:text="${#numbers.formatInteger(product.discountedPrice, 3, 'COMMA') + '원'}"></span>
+                        </span>
+                              <!-- 할인가가 없는 경우 원가만 표시 -->
+                             <span class="price-only" th:unless="${product.discountedPrice != null}">
+                            <span>가격 : </span>
+                            <span th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}"></span>
+                        </span>
+                        </div>
                     </li>
                     <li class="list-group-item">
                         <span>적립금 : </span>
@@ -296,6 +311,28 @@
         });
     });
 });
+     document.addEventListener('DOMContentLoaded', function() {
+        // 모든 상품 항목을 선택합니다.
+        const priceContainers = document.querySelectorAll('.price-container');
+
+        priceContainers.forEach(container => {
+            // 할인 가격 요소와 원가 요소를 선택합니다.
+            const originalPrice = container.querySelector('.original-price');
+            const discountedPrice = container.querySelector('.discounted-price');
+            const discountedValue = discountedPrice ? discountedPrice.querySelector('.discounted-value').textContent.trim() : '';
+
+            // 할인 가격이 존재하면
+            if (discountedValue && discountedValue !== '') {
+                // 원가에 작대기를 긋고 할인가를 표시합니다.
+                originalPrice.classList.remove('hidden');
+                discountedPrice.classList.remove('hidden');
+            } else {
+                // 원가만 표시하고 할인 가격을 숨깁니다.
+                originalPrice.classList.remove('hidden');
+                discountedPrice.classList.add('hidden');
+            }
+        });
+    });
 </script>
 </body>
 </html>
