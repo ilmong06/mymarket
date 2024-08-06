@@ -32,4 +32,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findLatestProducts(Pageable pageable);
     @Query("SELECT p FROM Product p ORDER BY p.hitCount DESC")
     Page<Product> findAllByHitCountDesc(Pageable pageable);
+
+    Page<Product> findAllByDiscountedPriceNotNull(Pageable pageable);
 }

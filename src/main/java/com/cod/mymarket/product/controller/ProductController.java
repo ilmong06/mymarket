@@ -145,17 +145,32 @@ public class ProductController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size
     ) {
-        // Pageable 객체를 생성하여 페이지네이션을 설정합니다.
+
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "hitCount"));
 
-        // 서비스에서 페이지네이션된 데이터를 조회합니다.
+
         Page<Product> paging = productService.getProductsSortedByHitCount(pageable);
 
-        // 모델에 데이터를 추가합니다.
+
         model.addAttribute("paging", paging);
         model.addAttribute("type", "BEST");
 
         // HTML 템플릿의 경로를 반환합니다.
         return "product/best";
+    }
+
+    @GetMapping("/saleproduct")
+    public String saleproduct(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createDate"));
+        Page<Product> paging = productService.getSaleProducts(page, size);
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("type", "SALE");
+
+        return "product/saleproduct";
     }
 }

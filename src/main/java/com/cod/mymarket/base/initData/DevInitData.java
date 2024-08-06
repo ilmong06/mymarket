@@ -68,6 +68,13 @@ public class DevInitData implements BeforeInitData {
 
             productService.create("타이틀17", "4 BAG&SHOES 설명입니다.", 40000, ProductType.BS, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
 
+            productService.createSaleProduct("타이틀18", "4 BAG&SHOES 설명입니다.", 40000, 23,ProductType.TOP, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
+            productService.createSaleProduct("타이틀19", "4 BAG&SHOES 설명입니다.", 40000, 23,ProductType.BOTTOM, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
+            productService.createSaleProduct("타이틀20", "4 BAG&SHOES 설명입니다.", 40000, 23,ProductType.DRESS, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
+            productService.createSaleProduct("타이틀21", "4 BAG&SHOES 설명입니다.", 40000, 23,ProductType.OUTER, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
+            productService.createSaleProduct("타이틀22", "4 BAG&SHOES 설명입니다.", 40000, 23,ProductType.BS, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
+            productService.createSaleProduct("타이틀23", "4 BAG&SHOES 설명입니다.", 40000, 23,ProductType.TOP, "product/product2.jpg", List.of("product/product1.jpg"), null,12,"은은한컬러_주문폭주",List.of("product/color-gray.jpg") ,"product/new.jpg");
+
         };
     }
 }

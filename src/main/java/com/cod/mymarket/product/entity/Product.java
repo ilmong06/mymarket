@@ -40,6 +40,8 @@ public class Product extends BaseEntity {
     //썸네일 디테일 설명
     private String details;
 
+    private int discountedPrice;
+
     @ElementCollection
     private List<String> colorImages;
     private String detailicon;
