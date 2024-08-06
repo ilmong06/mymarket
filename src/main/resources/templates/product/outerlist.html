@@ -13,7 +13,7 @@
             <h2>-OUTER-</h2>
         </div>
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
-            <li th:each="product : ${paging.content}">
+            <li th:each="product : ${paging.content}" th:if="${product.discountedPrice == null or product.discountedPrice == 0}">
                 <a th:href="@{|/product/detail/${product.id}|}" >
                     <img class="object-cover object-center block w-full h-full flex flex-col items-center" th:src="@{|/gen/${product.thumbnailImg}|}" style="height: 380px;"  alt="이미지가 존재하지 않습니다.">
                 </a>

@@ -13,24 +13,25 @@
             <h2>-SALE-</h2>
         </div>
         <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-10">
-            <li th:each="product : ${paging.content}" class="mb-4">
+            <!-- 할인 상품만 표시 -->
+            <li th:each="product : ${paging.content}" th:if="${product.discountedPrice != null and product.discountedPrice > 0}" class="mb-4">
                 <a th:href="@{|/product/detail/${product.id}|}">
                     <img class="object-cover object-center block w-full h-full" th:src="@{|/gen/${product.thumbnailImg}|}" style="height: 380px;" alt="이미지가 존재하지 않습니다.">
                 </a>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" style="font-size: 16px;" class="block text-lg mb-1 mt-2 text-center"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.title}" class="block text-lg mb-1 mt-2" style="font-size: 16px;"></a>
                 <div class="price-info">
                     <span class="original-price" th:text="${'KRW:' + #numbers.formatInteger(product.price, 3, 'COMMA')}"></span>
                     <span class="discounted-price" th:text="${'KRW:' + #numbers.formatInteger(product.discountedPrice, 3, 'COMMA')}"></span>
                 </div>
-                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" style="font-size: 14px;" class="block text-light-gray text-base text-center"></a>
+                <a th:href="@{|/product/detail/${product.id}|}" th:text="${product.details}" class="block text-light-gray text-base" style="font-size: 14px;"></a>
                 <!-- 색상 아이콘을 Flexbox로 가로 정렬 -->
                 <div class="color-images-container">
                     <a th:each="colorImage : ${product.colorImages}" th:href="@{|/product/detail/${product.id}|}">
-                        <img th:src="@{|/gen/${colorImage}|}" style="height: 11px; width: 11px;" alt="컬러아이콘">
+                        <img th:src="@{|/gen/${colorImage}|}" style="height: 11px; width: 11px; margin-top: 0.5rem;"  alt="컬러아이콘">
                     </a>
                 </div>
                 <a th:href="@{|/product/detail/${product.id}|}">
-                    <img th:src="@{|/gen/${product.detailicon}|}" alt="디테일아이콘">
+                    <img th:src="@{|/gen/${product.detailicon}|}" style="margin-top: 0.6rem;"  alt="디테일아이콘">
                 </a>
             </li>
         </ul>
